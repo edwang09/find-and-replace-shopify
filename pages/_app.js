@@ -1,4 +1,5 @@
 import App from 'next/app';
+import fetch from 'node-fetch'
 import Head from 'next/head';
 import { AppProvider } from '@shopify/polaris';
 import { Provider } from '@shopify/app-bridge-react';
@@ -12,6 +13,9 @@ import { ApolloProvider } from 'react-apollo';
 const client = new ApolloClient({
     fetchOptions: {
       credentials: 'include'
+    },
+    link:{
+      fetch:fetch,
     },
     defaultOptions: {
       watchQuery: {
