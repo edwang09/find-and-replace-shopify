@@ -14,9 +14,7 @@ const client = new ApolloClient({
     fetchOptions: {
       credentials: 'include'
     },
-    link:{
-      fetch:fetch,
-    },
+    fetch:fetch,
     defaultOptions: {
       watchQuery: {
         fetchPolicy: 'no-cache',
