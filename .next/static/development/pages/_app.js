@@ -59150,6 +59150,40 @@ function createUrl(router) {
 
 /***/ }),
 
+/***/ "./node_modules/node-fetch/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/node-fetch/browser.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// ref: https://github.com/tc39/proposal-global
+var getGlobal = function () {
+	// the only reliable means to get the global object is
+	// `Function('return this')()`
+	// However, this causes CSP violations in Chrome apps.
+	if (typeof self !== 'undefined') { return self; }
+	if (typeof window !== 'undefined') { return window; }
+	if (typeof global !== 'undefined') { return global; }
+	throw new Error('unable to locate global object');
+}
+
+var global = getGlobal();
+
+module.exports = exports = global.fetch;
+
+// Needed for TypeScript and Webpack.
+exports.default = global.fetch.bind(global);
+
+exports.Headers = global.Headers;
+exports.Request = global.Request;
+exports.Response = global.Response;
+
+/***/ }),
+
 /***/ "./node_modules/optimism/lib/bundle.esm.js":
 /*!*************************************************!*\
   !*** ./node_modules/optimism/lib/bundle.esm.js ***!
@@ -67276,19 +67310,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! next/app */ "./node_modules/next/app.js");
 /* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! next/head */ "./node_modules/next/dist/next-server/lib/head.js");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @shopify/polaris */ "./node_modules/@shopify/polaris/index.es.js");
-/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @shopify/app-bridge-react */ "./node_modules/@shopify/app-bridge-react/index.js");
-/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @shopify/polaris/styles.css */ "./node_modules/@shopify/polaris/styles.css");
-/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json");
-var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_12___namespace = /*#__PURE__*/__webpack_require__.t(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json", 1);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! apollo-boost */ "./node_modules/apollo-boost/lib/bundle.esm.js");
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-apollo */ "./node_modules/react-apollo/lib/react-apollo.esm.js");
+/* harmony import */ var node_fetch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! node-fetch */ "./node_modules/node-fetch/browser.js");
+/* harmony import */ var node_fetch__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(node_fetch__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! next/head */ "./node_modules/next/dist/next-server/lib/head.js");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @shopify/polaris */ "./node_modules/@shopify/polaris/index.es.js");
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @shopify/app-bridge-react */ "./node_modules/@shopify/app-bridge-react/index.js");
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @shopify/polaris/styles.css */ "./node_modules/@shopify/polaris/styles.css");
+/* harmony import */ var _shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_shopify_polaris_styles_css__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json");
+var _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_13___namespace = /*#__PURE__*/__webpack_require__.t(/*! @shopify/polaris/locales/en.json */ "./node_modules/@shopify/polaris/locales/en.json", 1);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! apollo-boost */ "./node_modules/apollo-boost/lib/bundle.esm.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-apollo */ "./node_modules/react-apollo/lib/react-apollo.esm.js");
 
 
 
@@ -67306,20 +67342,23 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement;
 
 
 
-var client = new apollo_boost__WEBPACK_IMPORTED_MODULE_14__["default"]({
+
+var client = new apollo_boost__WEBPACK_IMPORTED_MODULE_15__["default"]({
   fetchOptions: {
     credentials: 'include'
   },
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'ignore'
-    },
-    query: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'all'
-    }
-  }
+  uri: "https://39e1d939.ngrok.io/graphql",
+  fetch: node_fetch__WEBPACK_IMPORTED_MODULE_8___default.a // defaultOptions: {
+  //   watchQuery: {
+  //     fetchPolicy: 'no-cache',
+  //     errorPolicy: 'ignore',
+  //   },
+  //   query: {
+  //     fetchPolicy: 'no-cache',
+  //     errorPolicy: 'all',
+  //   },
+  // }
+
 });
 
 var MyApp =
@@ -67341,16 +67380,16 @@ function (_App) {
           pageProps = _this$props.pageProps;
       var config = {
         apiKey: "adbe2c54afb60c1f6d3ce065f5d8544b",
-        shopOrigin: js_cookie__WEBPACK_IMPORTED_MODULE_13___default.a.get("shopOrigin"),
+        shopOrigin: js_cookie__WEBPACK_IMPORTED_MODULE_14___default.a.get("shopOrigin"),
         forceRedirect: true
       };
-      return __jsx(react__WEBPACK_IMPORTED_MODULE_6___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_8___default.a, null, __jsx("title", null, "Sample App"), __jsx("meta", {
+      return __jsx(react__WEBPACK_IMPORTED_MODULE_6___default.a.Fragment, null, __jsx(next_head__WEBPACK_IMPORTED_MODULE_9___default.a, null, __jsx("title", null, "Sample App"), __jsx("meta", {
         charSet: "utf-8"
-      })), __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_10__["Provider"], {
+      })), __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_11__["Provider"], {
         config: config
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["AppProvider"], {
-        i18n: _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_12__
-      }, __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_15__["ApolloProvider"], {
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["AppProvider"], {
+        i18n: _shopify_polaris_locales_en_json__WEBPACK_IMPORTED_MODULE_13__
+      }, __jsx(react_apollo__WEBPACK_IMPORTED_MODULE_16__["ApolloProvider"], {
         client: client
       }, __jsx(Component, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, pageProps, {
         apolloClient: client

@@ -14,7 +14,7 @@ const client = new ApolloClient({
     fetchOptions: {
       credentials: 'include'
     },
-    uri:"/admin/api/2019-10/graphql.json",
+    uri:"https://shopifyfindandreplace.herokuapp.com/graphql",
     fetch:fetch,
     // defaultOptions: {
     //   watchQuery: {

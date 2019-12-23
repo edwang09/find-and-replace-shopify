@@ -93,9 +93,20 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./components/FavoriteList.js":
+/***/ "./components/ResourceList.css":
+/*!*************************************!*\
+  !*** ./components/ResourceList.css ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./components/ResourceList.js":
 /*!************************************!*\
-  !*** ./components/FavoriteList.js ***!
+  !*** ./components/ResourceList.js ***!
   \************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -169,284 +180,326 @@ class ResourceListWithProducts extends react__WEBPACK_IMPORTED_MODULE_7___defaul
     super(...args);
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "state", {
-      favorites: {},
-      bundles: {},
-      selectedItems: []
+      fetching: true,
+      searchquery: "",
+      replacestring: "",
+      matchcase: false,
+      saved: false,
+      scopes: [],
+      scopesV: [],
+      products: [],
+      allproducts: []
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "transformData", (data, searchquery, replacestring, scopes, matchcase) => {
-      const regsearchquery = new RegExp(searchquery, this.getRegexCase(matchcase));
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "handleScopeSelect", (scope, isVariant) => () => {
+      const scopetype = isVariant ? "scopesV" : "scopes";
+      const scopes = this.state[scopetype];
+      const selected = this.state[scopetype].findIndex(sco => sco === scope) > -1;
+
+      if (selected) {
+        this.setState({
+          [scopetype]: scopes.filter(sco => sco !== scope)
+        }, () => {
+          this.filterQuery();
+        });
+      } else {
+        this.setState({
+          [scopetype]: [...scopes, scope]
+        }, () => {
+          this.filterQuery();
+        });
+      }
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "toggleFavorite", () => {
+      console.log("toggle fav");
+      const favorite = store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get('favorite');
+
+      const searchform = lodash__WEBPACK_IMPORTED_MODULE_16___default.a.pick(this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes']);
+
+      const hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(searchform).sort().map(x => searchform[x].toString()).join(";");
+
+      if (!this.state.saved) {
+        if (!store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get('favorite')) {
+          console.log("no current fav");
+          console.log("hashedfav:" + hashedfav);
+          store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("favorite", {
+            [hashedfav]: searchform
+          });
+        } else {
+          console.log(store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get('favorite'));
+          store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("favorite", _objectSpread({}, favorite, {
+            [hashedfav]: searchform
+          }));
+        }
+
+        this.setState({
+          saved: true
+        });
+      } else {
+        delete favorite[hashedfav];
+        store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("favorite", favorite);
+        this.setState({
+          saved: false
+        });
+      }
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "handleChange", field => value => {
+      this.setState({
+        [field]: value
+      }, () => {
+        const searchform = lodash__WEBPACK_IMPORTED_MODULE_16___default.a.pick(this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes']);
+
+        const hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(searchform).sort().map(x => searchform[x].toString()).join(";");
+
+        const saved = store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get('favorite') && store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get('favorite')[hashedfav];
+        this.setState({
+          saved
+        });
+        this.filterQuery();
+      });
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "handleReplace", () => {
+      if (!this.state.products || this.state.products.length < 1) {
+        return;
+      }
+
+      let promises = this.state.products.length;
+      this.state.products.map((item, idx) => {
+        this.props.apolloClient.mutate({
+          mutation: _graphql_js__WEBPACK_IMPORTED_MODULE_18__["UPDATE_PRODUCTS"],
+          variables: {
+            input: this.transformData(item.node)
+          }
+        }).then(response => {
+          console.log(response);
+          promises -= 1;
+
+          if (promises === 0) {
+            this.fetchQuery();
+          }
+        });
+      });
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "transformData", data => {
+      const searchquery = new RegExp(this.state.searchquery, this.getRegexCase());
       let result = {
         id: data.id
       };
-      scopes.map(sco => {
+      this.state.scopes.map(sco => {
         if (sco === "tags") {
-          result[sco] = data[sco].map(tag => tag.replace(regsearchquery, replacestring));
+          result[sco] = data[sco].map(tag => tag.replace(searchquery, this.state.replacestring));
         } else if (sco === "description") {
-          result["descriptionHtml"] = data[sco].replace(regsearchquery, replacestring);
+          result["descriptionHtml"] = data[sco].replace(searchquery, this.state.replacestring);
         } else {
-          result[sco] = data[sco].replace(regsearchquery, replacestring);
+          result[sco] = data[sco].replace(searchquery, this.state.replacestring);
         }
       });
       console.log(result);
       return result;
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "handleReplace", (products, searchquery, replacestring, scopes, matchcase) => {
-      if (!products || products.length < 1) {
-        return;
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "InjectHighlight", text => {
+      if (!text) {
+        return "NA";
       }
 
-      products.edges.map(item => {
-        this.props.apolloClient.mutate({
-          mutation: _graphql_js__WEBPACK_IMPORTED_MODULE_18__["UPDATE_PRODUCTS"],
-          variables: {
-            input: this.transformData(item.node, searchquery, replacestring, scopes, matchcase)
+      const replace = new RegExp(this.state.searchquery, this.getRegexCase());
+      return __jsx("span", {
+        dangerouslySetInnerHTML: {
+          __html: text.replace(replace, function (x) {
+            return `<span style="background-color:yellow">${x}</span>`;
+          })
+        }
+      });
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "ConvertDatatoTable", data => {
+      if (!data || data.length < 1) {
+        return [[]];
+      }
+
+      return data.map(item => {
+        const node = item.node;
+        return this.getHeader().map(sco => {
+          if (sco === "tags") {
+            if (this.state.scopes.findIndex(scope => sco === scope) == -1) {
+              return node[sco].join("/n");
+            }
+
+            return this.InjectHighlight(node[sco].join("/n"));
           }
-        }).then(response => {
-          console.log(response);
+
+          if (this.state.scopes.findIndex(scope => sco === scope) == -1) {
+            return node[sco];
+          }
+
+          return this.InjectHighlight(node[sco]);
         });
       });
     });
   }
 
-  getRegexCase(matchcase) {
-    return matchcase ? "g" : "gi";
-  }
-
-  setSelectedItems(selectedItems) {
-    console.log(selectedItems);
-    return this.setState({
-      selectedItems
-    });
-  }
-
-  ObjtoArray(obj) {
-    return _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(obj).map(key => {
-      return _objectSpread({}, obj[key], {
-        key
-      });
-    });
-  }
-
-  ArrayobjtoArray(obj) {
-    return _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(obj).map(key => {
-      return {
-        content: obj[key],
-        key
-      };
-    });
-  }
-
   componentDidMount() {
-    const favorites = store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get("favorite") ? store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get("favorite") : {};
-    const bundles = store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get("bundle") ? store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get("bundle") : {}; // if(Object.keys.length(bundles)===0){
-    //     store.set("bundle",{})
-    // }
-
-    console.log(favorites);
-    console.log(bundles);
-    this.setState({
-      favorites,
-      bundles
-    });
+    this.fetchQuery();
   }
 
-  runFavorite(key) {
-    const {
-      searchquery,
-      replacestring,
-      scopes,
-      matchcase
-    } = this.state.favorites[key];
+  getRegexCase() {
+    return this.state.matchcase ? "g" : "gi";
+  }
+
+  fetchQuery() {
+    console.log("fetch");
+    this.setState({
+      fetching: true
+    });
     this.props.apolloClient.query({
-      query: _graphql_js__WEBPACK_IMPORTED_MODULE_18__["SEARCH_PRODUCTS"],
-      variables: {
-        searchquery
-      }
-    }).then(response => {
-      console.log(response);
-
-      if (response && response.data && response.data.products) {
-        this.handleReplace(response.data.products, searchquery, replacestring, scopes, matchcase);
-      } else {
-        console.log("no item found");
-      }
-    });
+      query: _graphql_js__WEBPACK_IMPORTED_MODULE_18__["LIST_PRODUCTS"]
+    }).then(response => this.setState({
+      allproducts: response.data.products.edges,
+      fetching: false
+    }, () => {
+      this.filterQuery();
+    }));
   }
 
-  removeFavorite(key) {
-    const {
-      favorites
-    } = this.state;
-    delete favorites[key];
-    store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("favorite", favorites);
-    this.setState({
-      favorites
-    });
-  }
+  filterQuery() {
+    console.log("filter");
 
-  createBundle() {
-    const {
-      favorites,
-      bundles
-    } = this.state;
-    const newbundle = this.state.selectedItems.reduce((bundle, key) => {
-      console.log(bundle);
-      const fav = favorites[key];
-      console.log(fav);
-      delete favorites[key];
-      return [...bundle, fav];
-    }, []);
-    const newbundlekey = "bundle:" + this.state.selectedItems.join(';');
-    console.log(newbundle);
-    console.log(newbundlekey);
-    console.log(favorites);
-    store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("favorite", favorites);
-    let newbundles;
+    if (this.state.searchquery !== "" && this.state.scopes.length + this.state.scopesV.length !== 0 && this.state.allproducts !== 0) {
+      const currentproducts = this.state.allproducts.filter(prod => {
+        const regx = new RegExp(this.state.searchquery, this.getRegexCase());
+        return this.state.scopes.some(sco => {
+          if (sco === "tags") {
+            return prod.node[sco].join("/n").search(regx) > -1;
+          }
 
-    if (!store_js__WEBPACK_IMPORTED_MODULE_12___default.a.get('bundle')) {
-      console.log("no current bundle");
-      newbundles = {
-        [newbundlekey]: newbundle
-      };
+          return prod.node[sco].search(regx) > -1;
+        });
+      });
+      console.log(currentproducts);
+      this.setState({
+        products: currentproducts
+      });
     } else {
-      newbundles = _objectSpread({}, bundles, {
-        [newbundlekey]: newbundle
+      this.setState({
+        products: []
       });
     }
-
-    store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("bundle", newbundles);
-    this.setState({
-      selectedItems: [],
-      favorites,
-      bundles: newbundles
-    });
   }
 
-  unbundle(key) {
-    const {
-      favorites,
-      bundles
-    } = this.state;
-    const bundle = bundles[key];
-    bundle.map(fav => {
-      const hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(fav).sort().map(x => fav[x].toString()).join(";");
-
-      favorites[hashedfav] = fav;
-    });
-    delete bundles[key];
-    console.log(bundles);
-    console.log(favorites);
-    store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("favorite", favorites);
-    store_js__WEBPACK_IMPORTED_MODULE_12___default.a.set("bundle", bundles);
-    this.setState({
-      favorites,
-      bundles
-    });
+  getHeader() {
+    return ["title", "handle", ...this.state.scopes.filter(sco => sco !== "title" && sco !== "handle")];
   }
 
-  runBundle(key) {
-    const bundle = this.state.bundles[key];
-    bundle.map(fav => {
-      const {
-        searchquery,
-        replacestring,
-        scopes,
-        matchcase
-      } = fav;
-      this.props.apolloClient.query({
-        query: _graphql_js__WEBPACK_IMPORTED_MODULE_18__["SEARCH_PRODUCTS"],
-        variables: {
-          searchquery
-        }
-      }).then(response => {
-        console.log(response);
+  getHeaderType() {
+    return Array(this.state.scopes.length).fill('text');
+  }
 
-        if (response && response.data && response.data.products) {
-          this.handleReplace(response.data.products, searchquery, replacestring, scopes, matchcase);
-        } else {
-          console.log("no item found");
-        }
-      });
-    });
+  isScopeSelected(scope, isVariant) {
+    if (isVariant) {
+      return this.state.scopesV.findIndex(sco => sco === scope) > -1;
+    }
+
+    return this.state.scopes.findIndex(sco => sco === scope) > -1;
   }
 
   render() {
-    const app = this.context;
+    const app = this.context; // const redirectToProduct = () => {
+    //   const redirect = Redirect.create(app);
+    //   redirect.dispatch(
+    //     Redirect.Action.APP,
+    //     '/edit-products',
+    //   );
+    // };
 
-    const redirectToProduct = () => {
-      const redirect = _shopify_app_bridge_actions__WEBPACK_IMPORTED_MODULE_13__["Redirect"].create(app);
-      redirect.dispatch(_shopify_app_bridge_actions__WEBPACK_IMPORTED_MODULE_13__["Redirect"].Action.APP, '/edit-products');
-    };
-
-    return __jsx("div", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["ResourceList"], {
-      resourceName: {
-        singular: 'favorite',
-        plural: 'favorites'
-      },
-      items: this.ObjtoArray(this.state.favorites),
-      selectedItems: this.state.selectedItems,
-      onSelectionChange: this.setSelectedItems.bind(this),
-      selectable: true,
-      promotedBulkActions: [{
-        content: 'Bundle',
-        onAction: () => this.createBundle()
-      }],
-      renderItem: item => {
-        const {
-          key,
-          searchquery,
-          replacestring,
-          matchcase,
-          scopes
-        } = item;
-        const shortcutActions = [{
-          content: 'Run',
-          onAction: () => this.runFavorite(key)
-        }, {
-          content: 'Remove',
-          onAction: () => this.removeFavorite(key)
-        }];
-        return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["ResourceItem"], {
-          id: key,
-          shortcutActions: shortcutActions,
-          persistActions: true,
-          name: searchquery
-        }, __jsx("h3", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["TextStyle"], {
-          variation: "strong"
-        }, searchquery, " | "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["TextStyle"], {
-          variation: "subdued"
-        }, "in (", scopes.toString(), ")")), __jsx("div", null, "Replace with :\"", replacestring, "\" ", matchcase ? "(Case Sensitive)" : "(Case Insensitive)"));
-      }
-    })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["ResourceList"], {
-      resourceName: {
-        singular: 'bundle',
-        plural: 'bundles'
-      },
-      items: this.ArrayobjtoArray(this.state.bundles),
-      renderItem: item => {
-        const {
-          key,
-          content
-        } = item;
-        console.log(item);
-        const shortcutActions = [{
-          content: 'Run',
-          onAction: () => this.runBundle(key)
-        }, {
-          content: 'Unbundle',
-          onAction: () => this.unbundle(key)
-        }];
-        return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["ResourceItem"], {
-          id: key,
-          shortcutActions: shortcutActions
-        }, __jsx("h3", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["TextStyle"], {
-          variation: "strong"
-        }, "Bundle")), content.map(item => {
-          return __jsx("div", null, "Find: \"", item.searchquery, "\" in (", item.scopes.toString(), "); Replace with :\"", item.replacestring, "\" ", item.matchcase ? "(Case Sensitive)" : "(Case Insensitive)");
-        }));
-      }
+    const selectoptions = [{
+      label: "products",
+      value: "products"
+    }, {
+      label: "products",
+      value: "products"
+    }, {
+      label: "products",
+      value: "products"
+    }];
+    return __jsx("div", null, __jsx("div", {
+      className: "form-container"
+    }, __jsx("div", {
+      className: "form-row"
+    }, __jsx("div", {
+      className: "form-input"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["TextField"], {
+      placeholder: "Find",
+      value: this.state.searchquery,
+      onChange: this.handleChange('searchquery')
+    }))), __jsx("h3", null, "Include fields: "), __jsx("div", {
+      className: "form-row"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Title",
+      checked: this.isScopeSelected('title'),
+      onChange: this.handleScopeSelect('title')
+    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Handle",
+      checked: this.isScopeSelected('handle'),
+      onChange: this.handleScopeSelect('handle')
+    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Product types",
+      checked: this.isScopeSelected('productType'),
+      onChange: this.handleScopeSelect('productType')
+    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Vendor",
+      checked: this.isScopeSelected('vendor'),
+      onChange: this.handleScopeSelect('vendor')
+    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Tags",
+      checked: this.isScopeSelected('tags'),
+      onChange: this.handleScopeSelect('tags')
+    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Description",
+      checked: this.isScopeSelected('description'),
+      onChange: this.handleScopeSelect('description')
+    })), __jsx("h3", null, "Variant fields: "), __jsx("div", {
+      className: "form-row"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Price",
+      checked: this.isScopeSelected('price', true),
+      onChange: this.handleScopeSelect('price', true)
+    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "SKU",
+      checked: this.isScopeSelected('sku', true),
+      onChange: this.handleScopeSelect('sku', true)
+    })), __jsx("div", {
+      className: "form-row"
+    }, __jsx("div", {
+      className: "form-input"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["TextField"], {
+      placeholder: "Replace with",
+      value: this.state.replacestring,
+      onChange: this.handleChange('replacestring')
+    })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Button"], {
+      className: "form-button",
+      onClick: this.handleReplace.bind(this)
+    }, "Replace "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Button"], {
+      className: "form-button",
+      onClick: this.handleReplace.bind(this)
+    }, "Replace all")), __jsx("div", {
+      className: "form-row"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Checkbox"], {
+      label: "Match case",
+      checked: this.state.matchcase,
+      onChange: this.handleChange('matchcase')
+    }), __jsx("a", {
+      onClick: this.toggleFavorite.bind(this)
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Icon"], {
+      source: this.state.saved ? _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_11__["StarFilledMinor"] : _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_11__["StarOutlineMinor"]
+    }), this.state.saved ? "Saved" : "Save to Favorite"))), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_10__["DataTable"], {
+      columnContentTypes: this.getHeaderType(),
+      headings: this.getHeader(),
+      rows: this.ConvertDatatoTable(this.state.products)
     })));
   }
 
@@ -455,17 +508,6 @@ class ResourceListWithProducts extends react__WEBPACK_IMPORTED_MODULE_7___defaul
 Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(ResourceListWithProducts, "contextType", _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_14__["Context"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (ResourceListWithProducts);
-
-/***/ }),
-
-/***/ "./components/ResourceList.css":
-/*!*************************************!*\
-  !*** ./components/ResourceList.css ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
 
 /***/ }),
 
@@ -670,10 +712,10 @@ function _defineProperty(obj, key, value) {
 
 /***/ }),
 
-/***/ "./pages/favorite.js":
-/*!***************************!*\
-  !*** ./pages/favorite.js ***!
-  \***************************/
+/***/ "./pages/index.js":
+/*!************************!*\
+  !*** ./pages/index.js ***!
+  \************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -688,7 +730,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! store-js */ "store-js");
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_FavoriteList_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/FavoriteList.js */ "./components/FavoriteList.js");
+/* harmony import */ var _components_ResourceList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/ResourceList */ "./components/ResourceList.js");
 
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
@@ -698,7 +740,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 
-class Favorite extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
+class Index extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
   constructor(...args) {
     super(...args);
 
@@ -718,35 +760,51 @@ class Favorite extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
   render() {
     // const emptyState = !store.get('ids');
     const emptyState = false;
-    console.log(this.props);
-    return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_2__["Page"], null, emptyState ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_2__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_2__["EmptyState"], {
-      heading: "You dont have favorite yet",
+    return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_2__["Page"], {
+      fullWidth: true
+    }, __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_3__["TitleBar"], {
+      primaryAction: {
+        content: 'Select products',
+        onAction: () => this.setState({
+          open: true
+        })
+      }
+    }), __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_3__["ResourcePicker"], {
+      resourceType: "Product",
+      showVariants: false,
+      open: this.state.open,
+      onSelection: resources => this.handleSelection(resources),
+      onCancel: () => this.setState({
+        open: false
+      })
+    }), emptyState ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_2__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_2__["EmptyState"], {
+      heading: "Select products to start",
       action: {
-        content: 'Go to main page',
+        content: 'Select products',
         onAction: () => this.setState({
           open: true
         })
       },
       image: img
-    }, __jsx("p", null, "Create Find and Replace and save it to favorite"))) : __jsx(_components_FavoriteList_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }, __jsx("p", null, "Select products and change their price temporarily"))) : __jsx(_components_ResourceList__WEBPACK_IMPORTED_MODULE_5__["default"], {
       apolloClient: this.props.apolloClient
     }));
   }
 
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Favorite);
+/* harmony default export */ __webpack_exports__["default"] = (Index);
 
 /***/ }),
 
 /***/ 4:
-/*!*********************************!*\
-  !*** multi ./pages/favorite.js ***!
-  \*********************************/
+/*!******************************!*\
+  !*** multi ./pages/index.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/edwang09/Documents/Upwork/Shopify/pages/favorite.js */"./pages/favorite.js");
+module.exports = __webpack_require__(/*! /home/edwang09/Documents/Upwork/Shopify/pages/index.js */"./pages/index.js");
 
 
 /***/ }),
@@ -928,4 +986,4 @@ module.exports = require("store-js");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=favorite.js.map
+//# sourceMappingURL=index.js.map

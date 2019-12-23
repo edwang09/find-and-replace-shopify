@@ -1,8 +1,8 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/favorite.js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/index.js"],{
 
-/***/ "./components/FavoriteList.js":
+/***/ "./components/ResourceList.js":
 /*!************************************!*\
-  !*** ./components/FavoriteList.js ***!
+  !*** ./components/ResourceList.js ***!
   \************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -19,9 +19,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/get-own-property-symbols */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-symbols.js");
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/toConsumableArray */ "./node_modules/@babel/runtime-corejs2/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/toConsumableArray */ "./node_modules/@babel/runtime-corejs2/helpers/esm/toConsumableArray.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
@@ -65,7 +65,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement;
 
-function ownKeys(object, enumerableOnly) { var keys = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_6___default()(object); if (_babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4___default.a) { var symbols = _babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4___default()(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return _babel_runtime_corejs2_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3___default()(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(object); if (_babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4___default.a) { var symbols = _babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4___default()(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return _babel_runtime_corejs2_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3___default()(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(target, key, source[key]); }); } else if (_babel_runtime_corejs2_core_js_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_2___default.a) { _babel_runtime_corejs2_core_js_object_define_properties__WEBPACK_IMPORTED_MODULE_1___default()(target, _babel_runtime_corejs2_core_js_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_2___default()(source)); } else { ownKeys(Object(source)).forEach(function (key) { _babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0___default()(target, key, _babel_runtime_corejs2_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3___default()(source, key)); }); } } return target; }
 
@@ -100,44 +100,178 @@ function (_React$Component) {
     _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_9__["default"])(this, (_getPrototypeOf2 = Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_10__["default"])(ResourceListWithProducts)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "state", {
-      favorites: {},
-      bundles: {},
-      selectedItems: []
+      fetching: true,
+      searchquery: "",
+      replacestring: "",
+      matchcase: false,
+      saved: false,
+      scopes: [],
+      scopesV: [],
+      products: [],
+      allproducts: []
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "transformData", function (data, searchquery, replacestring, scopes, matchcase) {
-      var regsearchquery = new RegExp(searchquery, _this.getRegexCase(matchcase));
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "handleScopeSelect", function (scope, isVariant) {
+      return function () {
+        var scopetype = isVariant ? "scopesV" : "scopes";
+        var scopes = _this.state[scopetype];
+        var selected = _this.state[scopetype].findIndex(function (sco) {
+          return sco === scope;
+        }) > -1;
+
+        if (selected) {
+          _this.setState(Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])({}, scopetype, scopes.filter(function (sco) {
+            return sco !== scope;
+          })), function () {
+            _this.filterQuery();
+          });
+        } else {
+          _this.setState(Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])({}, scopetype, [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__["default"])(scopes), [scope])), function () {
+            _this.filterQuery();
+          });
+        }
+      };
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "toggleFavorite", function () {
+      console.log("toggle fav");
+      var favorite = store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get('favorite');
+
+      var searchform = lodash__WEBPACK_IMPORTED_MODULE_23___default.a.pick(_this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes']);
+
+      var hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(searchform).sort().map(function (x) {
+        return searchform[x].toString();
+      }).join(";");
+
+      if (!_this.state.saved) {
+        if (!store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get('favorite')) {
+          console.log("no current fav");
+          console.log("hashedfav:" + hashedfav);
+          store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("favorite", Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])({}, hashedfav, searchform));
+        } else {
+          console.log(store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get('favorite'));
+          store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("favorite", _objectSpread({}, favorite, Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])({}, hashedfav, searchform)));
+        }
+
+        _this.setState({
+          saved: true
+        });
+      } else {
+        delete favorite[hashedfav];
+        store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("favorite", favorite);
+
+        _this.setState({
+          saved: false
+        });
+      }
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "handleChange", function (field) {
+      return function (value) {
+        _this.setState(Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])({}, field, value), function () {
+          var searchform = lodash__WEBPACK_IMPORTED_MODULE_23___default.a.pick(_this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes']);
+
+          var hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(searchform).sort().map(function (x) {
+            return searchform[x].toString();
+          }).join(";");
+
+          var saved = store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get('favorite') && store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get('favorite')[hashedfav];
+
+          _this.setState({
+            saved: saved
+          });
+
+          _this.filterQuery();
+        });
+      };
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "handleReplace", function () {
+      if (!_this.state.products || _this.state.products.length < 1) {
+        return;
+      }
+
+      var promises = _this.state.products.length;
+
+      _this.state.products.map(function (item, idx) {
+        _this.props.apolloClient.mutate({
+          mutation: _graphql_js__WEBPACK_IMPORTED_MODULE_25__["UPDATE_PRODUCTS"],
+          variables: {
+            input: _this.transformData(item.node)
+          }
+        }).then(function (response) {
+          console.log(response);
+          promises -= 1;
+
+          if (promises === 0) {
+            _this.fetchQuery();
+          }
+        });
+      });
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "transformData", function (data) {
+      var searchquery = new RegExp(_this.state.searchquery, _this.getRegexCase());
       var result = {
         id: data.id
       };
-      scopes.map(function (sco) {
+
+      _this.state.scopes.map(function (sco) {
         if (sco === "tags") {
           result[sco] = data[sco].map(function (tag) {
-            return tag.replace(regsearchquery, replacestring);
+            return tag.replace(searchquery, _this.state.replacestring);
           });
         } else if (sco === "description") {
-          result["descriptionHtml"] = data[sco].replace(regsearchquery, replacestring);
+          result["descriptionHtml"] = data[sco].replace(searchquery, _this.state.replacestring);
         } else {
-          result[sco] = data[sco].replace(regsearchquery, replacestring);
+          result[sco] = data[sco].replace(searchquery, _this.state.replacestring);
         }
       });
+
       console.log(result);
       return result;
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "handleReplace", function (products, searchquery, replacestring, scopes, matchcase) {
-      if (!products || products.length < 1) {
-        return;
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "InjectHighlight", function (text) {
+      if (!text) {
+        return "NA";
       }
 
-      products.edges.map(function (item) {
-        _this.props.apolloClient.mutate({
-          mutation: _graphql_js__WEBPACK_IMPORTED_MODULE_25__["UPDATE_PRODUCTS"],
-          variables: {
-            input: _this.transformData(item.node, searchquery, replacestring, scopes, matchcase)
+      var replace = new RegExp(_this.state.searchquery, _this.getRegexCase());
+      return __jsx("span", {
+        dangerouslySetInnerHTML: {
+          __html: text.replace(replace, function (x) {
+            return "<span style=\"background-color:yellow\">".concat(x, "</span>");
+          })
+        }
+      });
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_11__["default"])(_this), "ConvertDatatoTable", function (data) {
+      if (!data || data.length < 1) {
+        return [[]];
+      }
+
+      return data.map(function (item) {
+        var node = item.node;
+        return _this.getHeader().map(function (sco) {
+          if (sco === "tags") {
+            if (_this.state.scopes.findIndex(function (scope) {
+              return sco === scope;
+            }) == -1) {
+              return node[sco].join("/n");
+            }
+
+            return _this.InjectHighlight(node[sco].join("/n"));
           }
-        }).then(function (response) {
-          console.log(response);
+
+          if (_this.state.scopes.findIndex(function (scope) {
+            return sco === scope;
+          }) == -1) {
+            return node[sco];
+          }
+
+          return _this.InjectHighlight(node[sco]);
         });
       });
     });
@@ -146,258 +280,183 @@ function (_React$Component) {
   }
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__["default"])(ResourceListWithProducts, [{
-    key: "getRegexCase",
-    value: function getRegexCase(matchcase) {
-      return matchcase ? "g" : "gi";
-    }
-  }, {
-    key: "setSelectedItems",
-    value: function setSelectedItems(selectedItems) {
-      console.log(selectedItems);
-      return this.setState({
-        selectedItems: selectedItems
-      });
-    }
-  }, {
-    key: "ObjtoArray",
-    value: function ObjtoArray(obj) {
-      return _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_6___default()(obj).map(function (key) {
-        return _objectSpread({}, obj[key], {
-          key: key
-        });
-      });
-    }
-  }, {
-    key: "ArrayobjtoArray",
-    value: function ArrayobjtoArray(obj) {
-      return _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_6___default()(obj).map(function (key) {
-        return {
-          content: obj[key],
-          key: key
-        };
-      });
-    }
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var favorites = store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get("favorite") ? store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get("favorite") : {};
-      var bundles = store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get("bundle") ? store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get("bundle") : {}; // if(Object.keys.length(bundles)===0){
-      //     store.set("bundle",{})
-      // }
-
-      console.log(favorites);
-      console.log(bundles);
-      this.setState({
-        favorites: favorites,
-        bundles: bundles
-      });
+      this.fetchQuery();
     }
   }, {
-    key: "runFavorite",
-    value: function runFavorite(key) {
+    key: "getRegexCase",
+    value: function getRegexCase() {
+      return this.state.matchcase ? "g" : "gi";
+    }
+  }, {
+    key: "fetchQuery",
+    value: function fetchQuery() {
       var _this2 = this;
 
-      var _this$state$favorites = this.state.favorites[key],
-          searchquery = _this$state$favorites.searchquery,
-          replacestring = _this$state$favorites.replacestring,
-          scopes = _this$state$favorites.scopes,
-          matchcase = _this$state$favorites.matchcase;
+      console.log("fetch");
+      this.setState({
+        fetching: true
+      });
       this.props.apolloClient.query({
-        query: _graphql_js__WEBPACK_IMPORTED_MODULE_25__["SEARCH_PRODUCTS"],
-        variables: {
-          searchquery: searchquery
-        }
+        query: _graphql_js__WEBPACK_IMPORTED_MODULE_25__["LIST_PRODUCTS"]
       }).then(function (response) {
-        console.log(response);
-
-        if (response && response.data && response.data.products) {
-          _this2.handleReplace(response.data.products, searchquery, replacestring, scopes, matchcase);
-        } else {
-          console.log("no item found");
-        }
-      });
-    }
-  }, {
-    key: "removeFavorite",
-    value: function removeFavorite(key) {
-      var favorites = this.state.favorites;
-      delete favorites[key];
-      store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("favorite", favorites);
-      this.setState({
-        favorites: favorites
-      });
-    }
-  }, {
-    key: "createBundle",
-    value: function createBundle() {
-      var _this$state = this.state,
-          favorites = _this$state.favorites,
-          bundles = _this$state.bundles;
-      var newbundle = this.state.selectedItems.reduce(function (bundle, key) {
-        console.log(bundle);
-        var fav = favorites[key];
-        console.log(fav);
-        delete favorites[key];
-        return [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__["default"])(bundle), [fav]);
-      }, []);
-      var newbundlekey = "bundle:" + this.state.selectedItems.join(';');
-      console.log(newbundle);
-      console.log(newbundlekey);
-      console.log(favorites);
-      store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("favorite", favorites);
-      var newbundles;
-
-      if (!store_js__WEBPACK_IMPORTED_MODULE_19___default.a.get('bundle')) {
-        console.log("no current bundle");
-        newbundles = Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])({}, newbundlekey, newbundle);
-      } else {
-        newbundles = _objectSpread({}, bundles, Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_13__["default"])({}, newbundlekey, newbundle));
-      }
-
-      store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("bundle", newbundles);
-      this.setState({
-        selectedItems: [],
-        favorites: favorites,
-        bundles: newbundles
-      });
-    }
-  }, {
-    key: "unbundle",
-    value: function unbundle(key) {
-      var _this$state2 = this.state,
-          favorites = _this$state2.favorites,
-          bundles = _this$state2.bundles;
-      var bundle = bundles[key];
-      bundle.map(function (fav) {
-        var hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_6___default()(fav).sort().map(function (x) {
-          return fav[x].toString();
-        }).join(";");
-
-        favorites[hashedfav] = fav;
-      });
-      delete bundles[key];
-      console.log(bundles);
-      console.log(favorites);
-      store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("favorite", favorites);
-      store_js__WEBPACK_IMPORTED_MODULE_19___default.a.set("bundle", bundles);
-      this.setState({
-        favorites: favorites,
-        bundles: bundles
-      });
-    }
-  }, {
-    key: "runBundle",
-    value: function runBundle(key) {
-      var _this3 = this;
-
-      var bundle = this.state.bundles[key];
-      bundle.map(function (fav) {
-        var searchquery = fav.searchquery,
-            replacestring = fav.replacestring,
-            scopes = fav.scopes,
-            matchcase = fav.matchcase;
-
-        _this3.props.apolloClient.query({
-          query: _graphql_js__WEBPACK_IMPORTED_MODULE_25__["SEARCH_PRODUCTS"],
-          variables: {
-            searchquery: searchquery
-          }
-        }).then(function (response) {
-          console.log(response);
-
-          if (response && response.data && response.data.products) {
-            _this3.handleReplace(response.data.products, searchquery, replacestring, scopes, matchcase);
-          } else {
-            console.log("no item found");
-          }
+        return _this2.setState({
+          allproducts: response.data.products.edges,
+          fetching: false
+        }, function () {
+          _this2.filterQuery();
         });
       });
+    }
+  }, {
+    key: "filterQuery",
+    value: function filterQuery() {
+      var _this3 = this;
+
+      console.log("filter");
+
+      if (this.state.searchquery !== "" && this.state.scopes.length + this.state.scopesV.length !== 0 && this.state.allproducts !== 0) {
+        var currentproducts = this.state.allproducts.filter(function (prod) {
+          var regx = new RegExp(_this3.state.searchquery, _this3.getRegexCase());
+          return _this3.state.scopes.some(function (sco) {
+            if (sco === "tags") {
+              return prod.node[sco].join("/n").search(regx) > -1;
+            }
+
+            return prod.node[sco].search(regx) > -1;
+          });
+        });
+        console.log(currentproducts);
+        this.setState({
+          products: currentproducts
+        });
+      } else {
+        this.setState({
+          products: []
+        });
+      }
+    }
+  }, {
+    key: "getHeader",
+    value: function getHeader() {
+      return ["title", "handle"].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__["default"])(this.state.scopes.filter(function (sco) {
+        return sco !== "title" && sco !== "handle";
+      })));
+    }
+  }, {
+    key: "getHeaderType",
+    value: function getHeaderType() {
+      return Array(this.state.scopes.length).fill('text');
+    }
+  }, {
+    key: "isScopeSelected",
+    value: function isScopeSelected(scope, isVariant) {
+      if (isVariant) {
+        return this.state.scopesV.findIndex(function (sco) {
+          return sco === scope;
+        }) > -1;
+      }
+
+      return this.state.scopes.findIndex(function (sco) {
+        return sco === scope;
+      }) > -1;
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var app = this.context; // const redirectToProduct = () => {
+      //   const redirect = Redirect.create(app);
+      //   redirect.dispatch(
+      //     Redirect.Action.APP,
+      //     '/edit-products',
+      //   );
+      // };
 
-      var app = this.context;
-
-      var redirectToProduct = function redirectToProduct() {
-        var redirect = _shopify_app_bridge_actions__WEBPACK_IMPORTED_MODULE_20__["Redirect"].create(app);
-        redirect.dispatch(_shopify_app_bridge_actions__WEBPACK_IMPORTED_MODULE_20__["Redirect"].Action.APP, '/edit-products');
-      };
-
-      return __jsx("div", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["ResourceList"], {
-        resourceName: {
-          singular: 'favorite',
-          plural: 'favorites'
-        },
-        items: this.ObjtoArray(this.state.favorites),
-        selectedItems: this.state.selectedItems,
-        onSelectionChange: this.setSelectedItems.bind(this),
-        selectable: true,
-        promotedBulkActions: [{
-          content: 'Bundle',
-          onAction: function onAction() {
-            return _this4.createBundle();
-          }
-        }],
-        renderItem: function renderItem(item) {
-          var key = item.key,
-              searchquery = item.searchquery,
-              replacestring = item.replacestring,
-              matchcase = item.matchcase,
-              scopes = item.scopes;
-          var shortcutActions = [{
-            content: 'Run',
-            onAction: function onAction() {
-              return _this4.runFavorite(key);
-            }
-          }, {
-            content: 'Remove',
-            onAction: function onAction() {
-              return _this4.removeFavorite(key);
-            }
-          }];
-          return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["ResourceItem"], {
-            id: key,
-            shortcutActions: shortcutActions,
-            persistActions: true,
-            name: searchquery
-          }, __jsx("h3", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["TextStyle"], {
-            variation: "strong"
-          }, searchquery, " | "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["TextStyle"], {
-            variation: "subdued"
-          }, "in (", scopes.toString(), ")")), __jsx("div", null, "Replace with :\"", replacestring, "\" ", matchcase ? "(Case Sensitive)" : "(Case Insensitive)"));
-        }
-      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["ResourceList"], {
-        resourceName: {
-          singular: 'bundle',
-          plural: 'bundles'
-        },
-        items: this.ArrayobjtoArray(this.state.bundles),
-        renderItem: function renderItem(item) {
-          var key = item.key,
-              content = item.content;
-          console.log(item);
-          var shortcutActions = [{
-            content: 'Run',
-            onAction: function onAction() {
-              return _this4.runBundle(key);
-            }
-          }, {
-            content: 'Unbundle',
-            onAction: function onAction() {
-              return _this4.unbundle(key);
-            }
-          }];
-          return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["ResourceItem"], {
-            id: key,
-            shortcutActions: shortcutActions
-          }, __jsx("h3", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["TextStyle"], {
-            variation: "strong"
-          }, "Bundle")), content.map(function (item) {
-            return __jsx("div", null, "Find: \"", item.searchquery, "\" in (", item.scopes.toString(), "); Replace with :\"", item.replacestring, "\" ", item.matchcase ? "(Case Sensitive)" : "(Case Insensitive)");
-          }));
-        }
+      var selectoptions = [{
+        label: "products",
+        value: "products"
+      }, {
+        label: "products",
+        value: "products"
+      }, {
+        label: "products",
+        value: "products"
+      }];
+      return __jsx("div", null, __jsx("div", {
+        className: "form-container"
+      }, __jsx("div", {
+        className: "form-row"
+      }, __jsx("div", {
+        className: "form-input"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["TextField"], {
+        placeholder: "Find",
+        value: this.state.searchquery,
+        onChange: this.handleChange('searchquery')
+      }))), __jsx("h3", null, "Include fields: "), __jsx("div", {
+        className: "form-row"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Title",
+        checked: this.isScopeSelected('title'),
+        onChange: this.handleScopeSelect('title')
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Handle",
+        checked: this.isScopeSelected('handle'),
+        onChange: this.handleScopeSelect('handle')
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Product types",
+        checked: this.isScopeSelected('productType'),
+        onChange: this.handleScopeSelect('productType')
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Vendor",
+        checked: this.isScopeSelected('vendor'),
+        onChange: this.handleScopeSelect('vendor')
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Tags",
+        checked: this.isScopeSelected('tags'),
+        onChange: this.handleScopeSelect('tags')
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Description",
+        checked: this.isScopeSelected('description'),
+        onChange: this.handleScopeSelect('description')
+      })), __jsx("h3", null, "Variant fields: "), __jsx("div", {
+        className: "form-row"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Price",
+        checked: this.isScopeSelected('price', true),
+        onChange: this.handleScopeSelect('price', true)
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "SKU",
+        checked: this.isScopeSelected('sku', true),
+        onChange: this.handleScopeSelect('sku', true)
+      })), __jsx("div", {
+        className: "form-row"
+      }, __jsx("div", {
+        className: "form-input"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["TextField"], {
+        placeholder: "Replace with",
+        value: this.state.replacestring,
+        onChange: this.handleChange('replacestring')
+      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+        className: "form-button",
+        onClick: this.handleReplace.bind(this)
+      }, "Replace "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+        className: "form-button",
+        onClick: this.handleReplace.bind(this)
+      }, "Replace all")), __jsx("div", {
+        className: "form-row"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+        label: "Match case",
+        checked: this.state.matchcase,
+        onChange: this.handleChange('matchcase')
+      }), __jsx("a", {
+        onClick: this.toggleFavorite.bind(this)
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Icon"], {
+        source: this.state.saved ? _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_18__["StarFilledMinor"] : _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_18__["StarOutlineMinor"]
+      }), this.state.saved ? "Saved" : "Save to Favorite"))), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["DataTable"], {
+        columnContentTypes: this.getHeaderType(),
+        headings: this.getHeader(),
+        rows: this.ConvertDatatoTable(this.state.products)
       })));
     }
   }]);
@@ -71924,21 +71983,21 @@ module.exports = (__webpack_require__(/*! dll-reference dll_5f137288facb1107b491
 
 /***/ }),
 
-/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Ffavorite&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Ffavorite.js!./":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Ffavorite&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Ffavorite.js ***!
-  \********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Findex.js!./":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Findex.js ***!
+  \*********************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    (window.__NEXT_P=window.__NEXT_P||[]).push(["/favorite", function() {
-      var mod = __webpack_require__(/*! ./pages/favorite.js */ "./pages/favorite.js")
+    (window.__NEXT_P=window.__NEXT_P||[]).push(["/", function() {
+      var mod = __webpack_require__(/*! ./pages/index.js */ "./pages/index.js")
       if(true) {
-        module.hot.accept(/*! ./pages/favorite.js */ "./pages/favorite.js", function() {
-          if(!next.router.components["/favorite"]) return
-          var updatedPage = __webpack_require__(/*! ./pages/favorite.js */ "./pages/favorite.js")
-          next.router.update("/favorite", updatedPage)
+        module.hot.accept(/*! ./pages/index.js */ "./pages/index.js", function() {
+          if(!next.router.components["/"]) return
+          var updatedPage = __webpack_require__(/*! ./pages/index.js */ "./pages/index.js")
+          next.router.update("/", updatedPage)
         })
       }
       return mod
@@ -79940,10 +79999,10 @@ if (hasSymbols()) {
 
 /***/ }),
 
-/***/ "./pages/favorite.js":
-/*!***************************!*\
-  !*** ./pages/favorite.js ***!
-  \***************************/
+/***/ "./pages/index.js":
+/*!************************!*\
+  !*** ./pages/index.js ***!
+  \************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -79963,7 +80022,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! store-js */ "./node_modules/store-js/dist/store.legacy.js");
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_FavoriteList_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/FavoriteList.js */ "./components/FavoriteList.js");
+/* harmony import */ var _components_ResourceList__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/ResourceList */ "./components/ResourceList.js");
 
 
 
@@ -79979,23 +80038,23 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement;
 
 var img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 
-var Favorite =
+var Index =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Favorite, _React$Component);
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Index, _React$Component);
 
-  function Favorite() {
+  function Index() {
     var _getPrototypeOf2;
 
     var _this;
 
-    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Favorite);
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Index);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, (_getPrototypeOf2 = Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Favorite)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, (_getPrototypeOf2 = Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Index)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "state", {
       open: false
@@ -80016,18 +80075,40 @@ function (_React$Component) {
     return _this;
   }
 
-  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Favorite, [{
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Index, [{
     key: "render",
     value: function render() {
       var _this2 = this;
 
       // const emptyState = !store.get('ids');
       var emptyState = false;
-      console.log(this.props);
-      return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Page"], null, emptyState ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["EmptyState"], {
-        heading: "You dont have favorite yet",
+      return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Page"], {
+        fullWidth: true
+      }, __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_9__["TitleBar"], {
+        primaryAction: {
+          content: 'Select products',
+          onAction: function onAction() {
+            return _this2.setState({
+              open: true
+            });
+          }
+        }
+      }), __jsx(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_9__["ResourcePicker"], {
+        resourceType: "Product",
+        showVariants: false,
+        open: this.state.open,
+        onSelection: function onSelection(resources) {
+          return _this2.handleSelection(resources);
+        },
+        onCancel: function onCancel() {
+          return _this2.setState({
+            open: false
+          });
+        }
+      }), emptyState ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["EmptyState"], {
+        heading: "Select products to start",
         action: {
-          content: 'Go to main page',
+          content: 'Select products',
           onAction: function onAction() {
             return _this2.setState({
               open: true
@@ -80035,27 +80116,27 @@ function (_React$Component) {
           }
         },
         image: img
-      }, __jsx("p", null, "Create Find and Replace and save it to favorite"))) : __jsx(_components_FavoriteList_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }, __jsx("p", null, "Select products and change their price temporarily"))) : __jsx(_components_ResourceList__WEBPACK_IMPORTED_MODULE_11__["default"], {
         apolloClient: this.props.apolloClient
       }));
     }
   }]);
 
-  return Favorite;
+  return Index;
 }(react__WEBPACK_IMPORTED_MODULE_7___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Favorite);
+/* harmony default export */ __webpack_exports__["default"] = (Index);
 
 /***/ }),
 
 /***/ 2:
-/*!************************************************************************************************************************************************!*\
-  !*** multi next-client-pages-loader?page=%2Ffavorite&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Ffavorite.js ***!
-  \************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************!*\
+  !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Findex.js ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! next-client-pages-loader?page=%2Ffavorite&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Ffavorite.js! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Ffavorite&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Ffavorite.js!./");
+module.exports = __webpack_require__(/*! next-client-pages-loader?page=%2F&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Findex.js! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Findex.js!./");
 
 
 /***/ }),
@@ -80072,4 +80153,4 @@ module.exports = dll_5f137288facb1107b491;
 /***/ })
 
 },[[2,"static/runtime/webpack.js","styles"]]]);
-//# sourceMappingURL=favorite.js.map
+//# sourceMappingURL=index.js.map
