@@ -5,6 +5,7 @@ const next = require('next');
 const { default: createShopifyAuth } = require('@shopify/koa-shopify-auth');
 const { verifyRequest } = require('@shopify/koa-shopify-auth');
 const session = require('koa-session');
+var cors = require('cors')
 
 dotenv.config();
 const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
@@ -23,6 +24,8 @@ app.prepare().then(() => {
     server.use(session(server));
     server.keys = [SHOPIFY_API_SECRET_KEY];
   
+    server.use(cors())
+ 
     server.use(
       createShopifyAuth({
         apiKey: SHOPIFY_API_KEY,
