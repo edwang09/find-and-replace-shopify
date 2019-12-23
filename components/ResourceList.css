@@ -1,0 +1,16 @@
+.form-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+.form-row{
+    display: flex;
+    flex-direction: row;
+}
+.form-row .form-button{
+    margin-right: 10px;
+}
+.form-row .form-input{
+    flex-grow: 1;
+    max-width: 450px;
+}
