@@ -14,6 +14,7 @@ const client = new ApolloClient({
     fetchOptions: {
       credentials: 'include'
     },
+    uri:"https://adampollack.myshopify.com/admin/api/2019-10/graphql.json",
     fetch:fetch,
     // defaultOptions: {
     //   watchQuery: {
