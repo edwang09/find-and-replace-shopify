@@ -1,5 +1,5 @@
 import App from 'next/app';
-import fetch from 'node-fetch'
+import fetch from 'isomorphic-fetch'
 import Head from 'next/head';
 import { AppProvider } from '@shopify/polaris';
 import { Provider } from '@shopify/app-bridge-react';
@@ -14,7 +14,7 @@ const client = new ApolloClient({
     fetchOptions: {
       credentials: 'include'
     },
-    uri:"https://shopifyfindandreplace.herokuapp.com/api/graphql",
+    // uri:"https://shopifyfindandreplace.herokuapp.com/graphql",
     fetch:fetch,
     // defaultOptions: {
     //   watchQuery: {
