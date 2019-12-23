@@ -24,7 +24,7 @@ app.prepare().then(() => {
     server.use(session(server));
     server.keys = [SHOPIFY_API_SECRET_KEY];
   
-    server.use(cors())
+    // server.use(cors())
  
     server.use(
       createShopifyAuth({
