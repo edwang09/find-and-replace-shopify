@@ -11,7 +11,7 @@ class Index extends React.Component {
       const emptyState = false;
       return (
     <Page fullWidth>
-        <TitleBar
+        {/* <TitleBar
         primaryAction={{
             content: 'Select products',
             onAction: () => this.setState({ open: true }),
@@ -23,7 +23,7 @@ class Index extends React.Component {
         open={this.state.open}
         onSelection={(resources) => this.handleSelection(resources)}
         onCancel={() => this.setState({ open: false })}
-    />
+    /> */}
         {emptyState ? (
           <Layout>
             <EmptyState
