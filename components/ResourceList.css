@@ -16,4 +16,5 @@
 }
 .form-row .form-item{
     display: flex;
+    align-items: center;
 }
