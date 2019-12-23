@@ -6,6 +6,11 @@
 .form-row{
     display: flex;
     flex-direction: row;
+
+}
+.form-row div{
+    margin-right: 10px;
+    
 }
 .form-row .form-button{
     margin-right: 10px;
@@ -13,4 +18,7 @@
 .form-row .form-input{
     flex-grow: 1;
     max-width: 450px;
+}
+.form-row .form-input{
+    display: flex;
 }

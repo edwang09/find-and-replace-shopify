@@ -236,7 +236,7 @@ class ResourceListWithProducts extends React.Component {
               <Checkbox label="Description" checked={this.isScopeSelected('description')} onChange={this.handleScopeSelect('description')} />
           </div>
 
-          <h3>Variant fields: </h3>
+          <h3>Variant fields(not in use): </h3>
           <div className="form-row">
               <Checkbox label="Price" checked={this.isScopeSelected('price',true)} onChange={this.handleScopeSelect('price',true)} />
               <Checkbox label="SKU" checked={this.isScopeSelected('sku',true)} onChange={this.handleScopeSelect('sku',true)} />
@@ -253,7 +253,7 @@ class ResourceListWithProducts extends React.Component {
 
           <div className="form-row">
             <Checkbox label="Match case" checked={this.state.matchcase} onChange={this.handleChange('matchcase')} />
-            <a onClick={this.toggleFavorite.bind(this)} >
+            <a  className="form-item" onClick={this.toggleFavorite.bind(this)} >
               <Icon source={this.state.saved ? StarFilledMinor : StarOutlineMinor} />
               {this.state.saved ? "Saved" : "Save to Favorite"}
             </a>
