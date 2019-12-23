@@ -255,7 +255,7 @@ class ResourceListWithProducts extends React.Component {
             <Checkbox label="Match case" checked={this.state.matchcase} onChange={this.handleChange('matchcase')} />
             <a  className="form-item" onClick={this.toggleFavorite.bind(this)} >
               <Icon source={this.state.saved ? StarFilledMinor : StarOutlineMinor} />
-              {this.state.saved ? "Saved" : "Save to Favorite"}
+              <p>{this.state.saved ? "Saved" : "Save to Favorite"}</p>
             </a>
           </div>
 
