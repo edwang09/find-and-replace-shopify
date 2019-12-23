@@ -226,7 +226,7 @@ class ResourceListWithProducts extends React.Component {
             </div>
           </div>
           
-          <h3>Include fields: </h3>
+          <h3><b>Include fields: </b></h3>
           <div className="form-row">
               <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />
               <Checkbox label="Handle" checked={this.isScopeSelected('handle')} onChange={this.handleScopeSelect('handle')} />
@@ -236,7 +236,7 @@ class ResourceListWithProducts extends React.Component {
               <Checkbox label="Description" checked={this.isScopeSelected('description')} onChange={this.handleScopeSelect('description')} />
           </div>
 
-          <h3>Variant fields(not in use): </h3>
+          <h3><b>Variant fields</b>(not in use): </h3>
           <div className="form-row">
               <Checkbox label="Price" checked={this.isScopeSelected('price',true)} onChange={this.handleScopeSelect('price',true)} />
               <Checkbox label="SKU" checked={this.isScopeSelected('sku',true)} onChange={this.handleScopeSelect('sku',true)} />

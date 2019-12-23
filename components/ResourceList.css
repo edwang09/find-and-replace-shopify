@@ -6,9 +6,8 @@
 .form-row{
     display: flex;
     flex-direction: row;
-
 }
-.form-row .form-button{
+.form-row > *{
     margin-right: 10px;
 }
 .form-row .form-input{
