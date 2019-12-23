@@ -15,19 +15,20 @@ const client = new ApolloClient({
       credentials: 'include'
     },
     fetch:fetch,
-    defaultOptions: {
-      watchQuery: {
-        fetchPolicy: 'no-cache',
-        errorPolicy: 'ignore',
-      },
-      query: {
-        fetchPolicy: 'no-cache',
-        errorPolicy: 'all',
-      },
-    }
+    // defaultOptions: {
+    //   watchQuery: {
+    //     fetchPolicy: 'no-cache',
+    //     errorPolicy: 'ignore',
+    //   },
+    //   query: {
+    //     fetchPolicy: 'no-cache',
+    //     errorPolicy: 'all',
+    //   },
+    // }
   });
 class MyApp extends App {
   render() {
+    console.log(client)
     const { Component, pageProps } = this.props;
     const config = { apiKey: API_KEY, shopOrigin: Cookies.get("shopOrigin"), forceRedirect: true };
     return (

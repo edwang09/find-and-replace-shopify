@@ -204,13 +204,13 @@ class ResourceListWithProducts extends React.Component {
     
     render() {
       const app = this.context;
-      const redirectToProduct = () => {
-        const redirect = Redirect.create(app);
-        redirect.dispatch(
-          Redirect.Action.APP,
-          '/edit-products',
-        );
-      };
+      // const redirectToProduct = () => {
+      //   const redirect = Redirect.create(app);
+      //   redirect.dispatch(
+      //     Redirect.Action.APP,
+      //     '/edit-products',
+      //   );
+      // };
       const selectoptions = [
         {label:"products",value:"products"},
         {label:"products",value:"products"},
