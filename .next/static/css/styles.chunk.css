@@ -8730,12 +8730,16 @@ body{
     display: flex;
     flex-direction: row;
 }
-.form-row .form-button{
+.form-row > *{
     margin-right: 10px;
 }
 .form-row .form-input{
     flex-grow: 1;
     max-width: 450px;
+}
+.form-row .form-item{
+    display: flex;
+    align-items: center;
 }
 
 /*# sourceMappingURL=styles.chunk.css.map*/

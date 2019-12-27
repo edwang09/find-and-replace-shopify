@@ -10,7 +10,9 @@ import { Card,
     Button,
     Checkbox,
     Icon,
-    Select
+    Frame,
+    Toast,
+    ChoiceList
  } from '@shopify/polaris';
  import {
   StarFilledMinor,
@@ -27,7 +29,8 @@ import{ UPDATE_PRODUCTS, LIST_PRODUCTS, constructSearchProduct }from "./graphql.
 class ResourceListWithProducts extends React.Component {
     static contextType = Context;
     state = {
-        fetching:true,
+      fetching:true,
+      loading:false,
         searchquery: "",
         replacestring:"",
         matchcase:false,
@@ -35,7 +38,8 @@ class ResourceListWithProducts extends React.Component {
         scopes:[],
         scopesV:[],
         products:[],
-        allproducts:[]
+        allproducts:[],
+        operation: 'find'
     }
     componentDidMount(){
       this.fetchQuery()
@@ -52,7 +56,10 @@ class ResourceListWithProducts extends React.Component {
 
     filterQuery(){
       console.log("filter")
-      if(this.state.searchquery!=="" && (this.state.scopes.length + this.state.scopesV.length !== 0) && (this.state.allproducts !== 0) ){
+      if(this.state.operation==="insert" || this.state.operation ==="append"){
+        console.log(this.state.allproducts)
+        this.setState({products: this.state.allproducts})
+      }else if(this.state.searchquery!=="" && (this.state.scopes.length + this.state.scopesV.length !== 0) && (this.state.allproducts !== 0) ){
         const currentproducts = this.state.allproducts.filter(prod=>{
           const regx = new RegExp(this.state.searchquery, this.getRegexCase());
           return this.state.scopes.some(sco=>{
@@ -101,7 +108,7 @@ class ResourceListWithProducts extends React.Component {
     toggleFavorite = () => {
       console.log("toggle fav")
       const favorite = store.get('favorite')
-      const searchform = _.pick(this.state, ['searchquery', 'replacestring', 'matchcase','scopes'])
+      const searchform = _.pick(this.state, ['searchquery', 'replacestring', 'matchcase','scopes', 'operation'])
       const hashedfav = Object.keys(searchform).sort().map(x => searchform[x].toString()).join(";");
       if(!this.state.saved){
         if (!store.get('favorite')){
@@ -121,6 +128,9 @@ class ResourceListWithProducts extends React.Component {
     }
 
     handleChange = (field) =>  (value) => {
+      if (field==="operation"){
+        value = value[0]
+      }
       this.setState({ [field]: value }, ()=>{
         const searchform = _.pick(this.state, ['searchquery', 'replacestring', 'matchcase','scopes'])
         const hashedfav = Object.keys(searchform).sort().map(x => searchform[x].toString()).join(";");
@@ -134,7 +144,9 @@ class ResourceListWithProducts extends React.Component {
       if(!this.state.products || this.state.products.length<1){
         return 
       }
-      let promises=this.state.products.length
+      this.setState({ loading:true })
+      const promises = this.state.products.length
+      let count = promises
       this.state.products.map((item,idx)=>{
         this.props.apolloClient.mutate({
           mutation: UPDATE_PRODUCTS,
@@ -142,9 +154,10 @@ class ResourceListWithProducts extends React.Component {
         })
         .then(response=>{
           console.log(response)
-          promises -=1
-          if(promises===0){
+          count -= 1
+          if(count === 0){
             this.fetchQuery()
+            this.setState({ loading:false, showtoast:true, toastcontent: `${promises} products changed.` })
           }
         })
       })
@@ -153,13 +166,32 @@ class ResourceListWithProducts extends React.Component {
     transformData = (data)=>{
       const searchquery = new RegExp(this.state.searchquery, this.getRegexCase());
       let result = {id:data.id}
+      const { operation } = this.state
       this.state.scopes.map(sco=>{
         if(sco==="tags"){
-          result[sco] = data[sco].map(tag=>tag.replace(searchquery, this.state.replacestring))
+          if (operation === "insert"){
+            result[sco] = [ this.state.replacestring, ...data[sco]]
+          }else if (operation === "append"){
+            result[sco] = [...data[sco], this.state.replacestring]
+          }else{
+            result[sco] = data[sco].map(tag=>tag.replace(searchquery, this.state.replacestring))
+          }
         }else if(sco==="description"){
-          result["descriptionHtml"] = data[sco].replace(searchquery, this.state.replacestring)
+          if (operation === "insert"){
+            result[sco] = `<p>${this.state.replacestring}</p><p>` + data[sco] + '</p>'
+          }else if (operation === "append"){
+            result[sco] = '<p>' + data[sco] + `</p><p>${this.state.replacestring}</p>`
+          }else{
+            result["descriptionHtml"] = '<p>' + data[sco].replace(searchquery, this.state.replacestring) + '</p>'
+          }
         }else{
-          result[sco] = data[sco].replace(searchquery, this.state.replacestring)
+          if (operation === "insert"){
+            result[sco] = this.state.replacestring + data[sco]
+          }else if (operation === "append"){
+            result[sco] = data[sco] + this.state.replacestring
+          }else{
+            result[sco] = data[sco].replace(searchquery, this.state.replacestring)
+          }
         }
       })
       console.log(result)
@@ -211,22 +243,36 @@ class ResourceListWithProducts extends React.Component {
       //     '/edit-products',
       //   );
       // };
-      const selectoptions = [
-        {label:"products",value:"products"},
-        {label:"products",value:"products"},
-        {label:"products",value:"products"},
-      ]
+      const placeholder = {
+        "find": "Replace with",
+        "insert": "Insert text",
+        "append": "Append text"
+      }
     return (
-      <div>
+      <Frame>
         <div className="form-container">
-          
+
+          <h3><b>Operation: </b></h3>
           <div className="form-row">
+            <ChoiceList
+              // title="Operation: "
+              choices={[
+                {label: 'Find and Place', value: 'find'},
+                {label: 'Insert in front', value: 'insert'},
+                {label: 'Append to end', value: 'append'},
+              ]}
+              selected={this.state.operation}
+              onChange={this.handleChange('operation')}
+            />
+          </div>
+
+          {this.state.operation === 'find' && <div className="form-row">
             <div className="form-input" >
               <TextField placeholder="Find" value={this.state.searchquery} onChange={this.handleChange('searchquery')} />
             </div>
-          </div>
+          </div>}
           
-          <h3><b>Include fields: </b></h3>
+          <h3><b>In fields: </b></h3>
           <div className="form-row">
               <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />
               <Checkbox label="Handle" checked={this.isScopeSelected('handle')} onChange={this.handleScopeSelect('handle')} />
@@ -238,16 +284,16 @@ class ResourceListWithProducts extends React.Component {
 
           <h3><b>Variant fields</b>(not in use): </h3>
           <div className="form-row">
-              <Checkbox label="Price" checked={this.isScopeSelected('price',true)} onChange={this.handleScopeSelect('price',true)} />
-              <Checkbox label="SKU" checked={this.isScopeSelected('sku',true)} onChange={this.handleScopeSelect('sku',true)} />
+              <Checkbox label="Price" disabled checked={this.isScopeSelected('price',true)} onChange={this.handleScopeSelect('price',true)} />
+              <Checkbox label="SKU" disabled checked={this.isScopeSelected('sku',true)} onChange={this.handleScopeSelect('sku',true)} />
           </div>
 
           <div className="form-row">
             <div className="form-input" >
-              <TextField placeholder="Replace with"  value={this.state.replacestring} onChange={this.handleChange('replacestring')} />
+              <TextField placeholder={placeholder[this.state.operation]}  value={this.state.replacestring} onChange={this.handleChange('replacestring')} />
             </div>
-            <Button className="form-button" onClick={this.handleReplace.bind(this)}>Replace </Button>
-            <Button className="form-button" onClick={this.handleReplace.bind(this)}>Replace all</Button>
+            <Button className="form-button" loading={this.state.loading} onClick={this.handleReplace.bind(this)}>Replace </Button>
+            {/* <Button className="form-button" loading={this.state.loading} onClick={this.handleReplace.bind(this)}>Replace all</Button> */}
           </div>
 
 
@@ -267,8 +313,8 @@ class ResourceListWithProducts extends React.Component {
             rows={this.ConvertDatatoTable(this.state.products)}
           />
         </Card>
-
-      </div>
+        {this.state.showtoast ? (<Toast content={this.state.toastcontent} onDismiss={() => this.setState({showtoast:false})} />) : null}
+      </Frame>
     );
   }
 }
