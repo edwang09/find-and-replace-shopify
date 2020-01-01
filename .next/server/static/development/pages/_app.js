@@ -631,18 +631,17 @@ const client = new apollo_boost__WEBPACK_IMPORTED_MODULE_10___default.a({
   fetchOptions: {
     credentials: 'include'
   },
-  // uri:"https://shopifyfindandreplace.herokuapp.com/graphql",
-  fetch: isomorphic_fetch__WEBPACK_IMPORTED_MODULE_3___default.a // defaultOptions: {
-  //   watchQuery: {
-  //     fetchPolicy: 'no-cache',
-  //     errorPolicy: 'ignore',
-  //   },
-  //   query: {
-  //     fetchPolicy: 'no-cache',
-  //     errorPolicy: 'all',
-  //   },
-  // }
-
+  fetch: isomorphic_fetch__WEBPACK_IMPORTED_MODULE_3___default.a,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore'
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all'
+    }
+  }
 });
 
 class MyApp extends next_app__WEBPACK_IMPORTED_MODULE_2___default.a {

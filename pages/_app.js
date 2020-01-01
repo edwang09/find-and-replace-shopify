@@ -14,18 +14,17 @@ const client = new ApolloClient({
     fetchOptions: {
       credentials: 'include'
     },
-    // uri:"https://shopifyfindandreplace.herokuapp.com/graphql",
     fetch:fetch,
-    // defaultOptions: {
-    //   watchQuery: {
-    //     fetchPolicy: 'no-cache',
-    //     errorPolicy: 'ignore',
-    //   },
-    //   query: {
-    //     fetchPolicy: 'no-cache',
-    //     errorPolicy: 'all',
-    //   },
-    // }
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'ignore',
+      },
+      query: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'all',
+      },
+    }
   });
 class MyApp extends App {
   render() {

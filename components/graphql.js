@@ -38,10 +38,20 @@ export const SEARCH_PRODUCTS = gql`
     }
   }
 `;
-export const LIST_PRODUCTS = gql`
+export const constructListproduct = (cursor)=>{
+  let addon = ""
+  if (cursor) {
+    addon = `, after : "${cursor}"`
+  }
+  return gql`
   query getProducts {
-    products(first:100) {
+    products(first:50 ${addon}) {
+        pageInfo { 
+          hasNextPage 
+          hasPreviousPage 
+        }
         edges {
+            cursor
             node {
                 title
                 handle
@@ -64,6 +74,7 @@ export const LIST_PRODUCTS = gql`
     }
   }
 `;
+}
 
 export const constructSearchProduct = (productList, VariantList)=>{
 
