@@ -10,7 +10,7 @@ import store from 'store-js';
 import { Redirect } from '@shopify/app-bridge/actions';
 import { Context } from '@shopify/app-bridge-react';
 import _ from 'lodash'
-import{ UPDATE_PRODUCTS, LIST_PRODUCTS }from "../components/graphql"
+import{ UPDATE_PRODUCTS, constructListproduct }from "../components/graphql"
 
 class Favorite extends React.Component {
     static contextType = Context;
@@ -111,9 +111,19 @@ class Favorite extends React.Component {
         console.log(bundles)
         this.setState({favorites, bundles, emptyState})
     }
-    fetchQuery(){
-      this.setState({fetching:true})
-      this.props.apolloClient.query({query: LIST_PRODUCTS}).then(response=>this.setState({allproducts:response.data.products.edges, fetching:false}))
+    async fetchQuery(){
+        console.log("fetch")
+        this.setState({fetching:true})
+        let fetch = true
+        let cursor
+        while (fetch) {
+          const response = await this.props.apolloClient.query({query: constructListproduct(cursor)})
+          console.log(response.data)
+          fetch = response.data.products.pageInfo.hasNextPage
+          cursor = response.data.products.edges[response.data.products.edges.length-1].cursor
+          this.setState({allproducts:[...this.state.allproducts, ...response.data.products.edges]})
+        }
+        this.setState({fetching:false})
     }
     filterQuery(searchquery, scopes, matchcase, operation){
         return new Promise((resolve, reject)=>{

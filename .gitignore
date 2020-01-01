@@ -5,3 +5,4 @@ ngrok-stable-linux-amd64.zip
 package-lock.json
 products_export.csv
 env
+.next/
