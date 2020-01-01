@@ -39,7 +39,9 @@ class Index extends React.Component {
       this.fetchQuery()
     }
     getRegexCase(){return this.state.matchcase ? "g" : "gi"}
-
+    getRegex(searchquery){
+      return new RegExp(searchquery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), this.getRegexCase());
+    }
     async fetchQuery(){
       console.log("fetch")
       this.setState({fetching:true})
@@ -62,7 +64,7 @@ class Index extends React.Component {
         this.setState({products: this.state.allproducts})
       }else if(this.state.searchquery!=="" && (this.state.scopes.length + this.state.scopesV.length !== 0) && (this.state.allproducts !== 0) ){
         const currentproducts = this.state.allproducts.filter(prod=>{
-          const regx = new RegExp(this.state.searchquery, this.getRegexCase());
+          const regx = this.getRegex(this.state.searchquery);
           return this.state.scopes.some(sco=>{
             if(sco==="tags"){
               return (prod.node[sco].join("/n").search(regx)>-1)
@@ -165,7 +167,7 @@ class Index extends React.Component {
     }
 
     transformData = (data)=>{
-      const searchquery = new RegExp(this.state.searchquery, this.getRegexCase());
+      const searchquery = this.getRegex(this.state.searchquery);
       let result = {id:data.id}
       const { operation } = this.state
       this.state.scopes.map(sco=>{
@@ -203,7 +205,7 @@ class Index extends React.Component {
       if (!text){
         return "NA"
       }
-      const replace = new RegExp(this.state.searchquery, this.getRegexCase());
+      const replace = this.getRegex(this.state.searchquery);
       return (
         <span
           dangerouslySetInnerHTML={{

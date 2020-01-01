@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -503,7 +503,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
     });
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "transformData", data => {
-      const searchquery = new RegExp(this.state.searchquery, this.getRegexCase());
+      const searchquery = this.getRegex(this.state.searchquery);
       let result = {
         id: data.id
       };
@@ -546,7 +546,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
         return "NA";
       }
 
-      const replace = new RegExp(this.state.searchquery, this.getRegexCase());
+      const replace = this.getRegex(this.state.searchquery);
       return __jsx("span", {
         dangerouslySetInnerHTML: {
           __html: text.replace(replace, function (x) {
@@ -590,6 +590,10 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
     return this.state.matchcase ? "g" : "gi";
   }
 
+  getRegex(searchquery) {
+    return new RegExp(searchquery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), this.getRegexCase());
+  }
+
   async fetchQuery() {
     console.log("fetch");
     this.setState({
@@ -625,7 +629,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       });
     } else if (this.state.searchquery !== "" && this.state.scopes.length + this.state.scopesV.length !== 0 && this.state.allproducts !== 0) {
       const currentproducts = this.state.allproducts.filter(prod => {
-        const regx = new RegExp(this.state.searchquery, this.getRegexCase());
+        const regx = this.getRegex(this.state.searchquery);
         return this.state.scopes.some(sco => {
           if (sco === "tags") {
             return prod.node[sco].join("/n").search(regx) > -1;
@@ -777,7 +781,7 @@ Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODUL
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/

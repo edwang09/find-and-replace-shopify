@@ -20,15 +20,18 @@ class Favorite extends React.Component {
         bundles:{},
         selectedItems: [],
         loading: "",
-        toasts:[]
+        toasts:[],
+        allproducts:[]
 
     }
     randomString(length) {
         return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
     }
-    getRegexCase(matchcase){return matchcase ? "g" : "gi"}
+    getRegex(searchquery, matchcase){
+      return new RegExp(searchquery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),( matchcase ? "g" : "gi"));
+    }
     transformData = (data, searchquery, replacestring, scopes, matchcase, operation)=>{
-        const regsearchquery = new RegExp(searchquery, this.getRegexCase(matchcase));
+        const regsearchquery = this.getRegex(searchquery,matchcase)
         let result = {id:data.id}
         scopes.map(sco=>{
             if(sco==="tags"){
@@ -127,11 +130,11 @@ class Favorite extends React.Component {
     }
     filterQuery(searchquery, scopes, matchcase, operation){
         return new Promise((resolve, reject)=>{
-            if(operation==="insert" || opertaion ==="append"){
+            if(operation==="insert" || operation ==="append"){
                 return this.state.allproducts
             }else if(searchquery!=="" && (scopes.length !== 0) && (this.state.allproducts.length !== 0) ){
               const currentproducts = this.state.allproducts.filter(prod=>{
-                const regx = new RegExp(searchquery, this.getRegexCase(matchcase));
+                const regx = this.getRegex(searchquery,matchcase)
                 return scopes.some(sco=>{
                   if(sco==="tags"){
                     return (prod.node[sco].join("/n").search(regx)>-1)

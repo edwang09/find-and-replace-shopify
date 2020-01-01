@@ -69880,7 +69880,8 @@ function (_React$Component) {
     });
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "transformData", function (data) {
-      var searchquery = new RegExp(_this.state.searchquery, _this.getRegexCase());
+      var searchquery = _this.getRegex(_this.state.searchquery);
+
       var result = {
         id: data.id
       };
@@ -69925,7 +69926,8 @@ function (_React$Component) {
         return "NA";
       }
 
-      var replace = new RegExp(_this.state.searchquery, _this.getRegexCase());
+      var replace = _this.getRegex(_this.state.searchquery);
+
       return __jsx("span", {
         dangerouslySetInnerHTML: {
           __html: text.replace(replace, function (x) {
@@ -69976,6 +69978,11 @@ function (_React$Component) {
     key: "getRegexCase",
     value: function getRegexCase() {
       return this.state.matchcase ? "g" : "gi";
+    }
+  }, {
+    key: "getRegex",
+    value: function getRegex(searchquery) {
+      return new RegExp(searchquery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), this.getRegexCase());
     }
   }, {
     key: "fetchQuery",
@@ -70039,7 +70046,8 @@ function (_React$Component) {
         });
       } else if (this.state.searchquery !== "" && this.state.scopes.length + this.state.scopesV.length !== 0 && this.state.allproducts !== 0) {
         var currentproducts = this.state.allproducts.filter(function (prod) {
-          var regx = new RegExp(_this2.state.searchquery, _this2.getRegexCase());
+          var regx = _this2.getRegex(_this2.state.searchquery);
+
           return _this2.state.scopes.some(function (sco) {
             if (sco === "tags") {
               return prod.node[sco].join("/n").search(regx) > -1;
@@ -70207,7 +70215,7 @@ Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODUL
 
 /***/ }),
 
-/***/ 2:
+/***/ 3:
 /*!*************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2Fhome%2Fedwang09%2FDocuments%2FUpwork%2FShopify%2Fpages%2Findex.js ***!
   \*************************************************************************************************************************************/
@@ -70230,5 +70238,5 @@ module.exports = dll_5f137288facb1107b491;
 
 /***/ })
 
-},[[2,"static/runtime/webpack.js","styles"]]]);
+},[[3,"static/runtime/webpack.js","styles"]]]);
 //# sourceMappingURL=index.js.map
