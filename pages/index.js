@@ -9,7 +9,8 @@ import {
   Icon,
   Frame,
   Toast,
-  ChoiceList
+  ChoiceList,
+  Loading
 } from '@shopify/polaris';
 import {
   StarFilledMinor,
@@ -19,6 +20,8 @@ import { Context } from '@shopify/app-bridge-react';
 import _ from 'lodash'
 import './index.css'
 import{ UPDATE_PRODUCTS, constructListproduct, constructSearchProduct }from "../components/graphql"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 class Index extends React.Component {
     static contextType = Context;
@@ -31,9 +34,13 @@ class Index extends React.Component {
         saved: false,
         scopes:[],
         scopesV:[],
+        fields:[],
         products:[],
+        productList:[],
         allproducts:[],
-        operation: 'find'
+        operation: 'replace',
+        cursor: 0,
+        total : 0
     }
     componentDidMount(){
       this.fetchQuery()
@@ -60,9 +67,7 @@ class Index extends React.Component {
     filterQuery(){
       console.log("filter")
       console.log(this.state.allproducts)
-      if(this.state.operation==="insert" || this.state.operation ==="append"){
-        this.setState({products: this.state.allproducts})
-      }else if(this.state.searchquery!=="" && (this.state.scopes.length + this.state.scopesV.length !== 0) && (this.state.allproducts !== 0) ){
+      if(this.state.searchquery!=="" && (this.state.scopes.length + this.state.scopesV.length !== 0) && (this.state.allproducts !== 0) ){
         const currentproducts = this.state.allproducts.filter(prod=>{
           const regx = this.getRegex(this.state.searchquery);
           return this.state.scopes.some(sco=>{
@@ -73,39 +78,40 @@ class Index extends React.Component {
           })
         })
         console.log(currentproducts)
-        this.setState({products: currentproducts})
+        this.setState({products: currentproducts, productList: this.ConvertDatatoTable(currentproducts, 0),cursor:0})
       }else{
-        this.setState({products:[]})
+        this.setState({products:[], productList:[]})
       }
     }
 
     getHeader(){
-      return ["title","handle",...this.state.scopes.filter(sco=>(sco!=="title" && sco!=="handle"))]
+      let scopes = this.state.scopes
+      if(this.state.operation === "insert" || this.state.operation === "append"){
+        scopes = [...scopes, ...this.state.fields.filter(sco=>scopes.findIndex(s=>s===sco)===-1)]
+      }
+      return ["title","handle",...scopes.filter(sco=>(sco!=="title" && sco!=="handle"))]
     }
     getHeaderType(){
       return Array(this.state.scopes.length).fill('text')
     }
 
-    isScopeSelected(scope,isVariant){
-      if(isVariant){
-        return (this.state.scopesV.findIndex(sco=>sco===scope)>-1)
-      }
-      return (this.state.scopes.findIndex(sco=>sco===scope)>-1)
+    isScopeSelected(scope, field){
+      if (field === undefined) field = 0
+      const scopetype = ["scopes", "scopesV", "fields"][field]
+      return (this.state[scopetype].findIndex(sco=>sco===scope)>-1)
     }
 
-    handleScopeSelect=(scope,isVariant)=>()=>{
-      const scopetype = isVariant ? "scopesV" : "scopes"
+    handleScopeSelect=(scope,field)=>()=>{
+      if (field === undefined) field = 0
+      const scopetype = ["scopes", "scopesV", "fields"][field]
       const scopes = this.state[scopetype]
-      const selected = (this.state[scopetype].findIndex(sco=>sco===scope)>-1)
-      if (selected){
-        this.setState({[scopetype]: scopes.filter(sco=>sco!==scope)},()=>{
-          this.filterQuery()
-        })
-      }else{
-        this.setState({[scopetype]: [...scopes,scope]},()=>{
-          this.filterQuery()
-        })
-      }
+      const newscope = ["title","handle","productType","vendor","tags","description"].filter(scop=>{
+        if (scop === scope) return (scopes.findIndex(sco=>sco===scop) === -1)
+        return (scopes.findIndex(sco=>sco===scop) > -1)
+      })
+      this.setState({[scopetype]: newscope},()=>{
+        this.filterQuery()
+      })
     }
 
     toggleFavorite = () => {
@@ -139,11 +145,14 @@ class Index extends React.Component {
         const hashedfav = Object.keys(searchform).sort().map(x => searchform[x].toString()).join(";");
         const saved = store.get('favorite') && store.get('favorite')[hashedfav]
         this.setState({ saved })
-        this.filterQuery()
+        if (field && field!=="operation" && field!=="replacestring"){
+          this.filterQuery()
+        }
       })
     };
 
-    handleReplace = () => {
+
+    handleReplaceAll = () => {
       if(!this.state.products || this.state.products.length<1){
         return 
       }
@@ -160,101 +169,249 @@ class Index extends React.Component {
           count -= 1
           if(count === 0){
             this.fetchQuery()
-            this.setState({ loading:false, showtoast:true, currentproducts:[], toastcontent: `${promises} products changed.` })
+            this.setState({ loading:false, showtoast:true, products:[], toastcontent: `${promises} products changed.`, cursor: 0 })
           }
         })
       })
     }
 
-    transformData = (data)=>{
+    handleReplace = () => {
+      if(!this.state.products || this.state.products.length<1){
+        return 
+      }
+      this.setState({ loading:true })
+      const currentCursor = this.FindTextByCursor(this.state.products, this.state.cursor)
+      console.log(currentCursor)
+      const promises = this.state.products.length
+      let count = promises
+      this.props.apolloClient.mutate({
+        mutation: UPDATE_PRODUCTS,
+        variables:{input:this.transformData(this.state.products[currentCursor.index].node, currentCursor.sco, currentCursor.count)}
+      })
+      .then(response=>{
+        console.log(response)
+          this.setState({ loading:false, showtoast:true, toastcontent: `products change submitted.` })
+      })
+    }
+
+    //handle data manipulation
+    transformData = (data, scope, count)=>{
       const searchquery = this.getRegex(this.state.searchquery);
+      const replacestring = this.state.replacestring
       let result = {id:data.id}
       const { operation } = this.state
-      this.state.scopes.map(sco=>{
-        if(sco==="tags"){
+      if(scope!== undefined ){
+        console.log(scope, count)
+        if(scope==="tags"){
           if (operation === "insert"){
-            result[sco] = [ this.state.replacestring, ...data[sco]]
+            result[scope] = [ replacestring, ...data[scope]]
           }else if (operation === "append"){
-            result[sco] = [...data[sco], this.state.replacestring]
+            result[scope] = [...data[scope], replacestring]
           }else{
-            result[sco] = data[sco].map(tag=>tag.replace(searchquery, this.state.replacestring))
+            let nth = -1
+            result[scope] = data[scope].join(", ").replace(searchquery, function (x) {
+              nth++
+              if (count === nth){
+                return replacestring;
+              }
+              return x;
+            }).split(", ")
           }
-        }else if(sco==="description"){
+          data[scope] = result[scope]
+        }else if(scope==="description"){
           if (operation === "insert"){
-            result[sco] = `<p>${this.state.replacestring}</p><p>` + data[sco] + '</p>'
+            result["descriptionHtml"] = `<p>${replacestring}</p><p>` + data[scope] + '</p>'
+            data[scope] = replacestring + data[scope]
           }else if (operation === "append"){
-            result[sco] = '<p>' + data[sco] + `</p><p>${this.state.replacestring}</p>`
+            result["descriptionHtml"] = '<p>' + data[scope] + `</p><p>${replacestring}</p>`
+            data[scope] = data[scope] + replacestring
           }else{
-            result["descriptionHtml"] = '<p>' + data[sco].replace(searchquery, this.state.replacestring) + '</p>'
+            let nth = -1
+            data[scope] = data[scope].replace(searchquery, function (x) {
+              nth++
+              if (count === nth){
+                return replacestring;
+              }
+              return x;
+            })
+            result["descriptionHtml"] = '<p>' + data[scope] + '</p>'
           }
         }else{
           if (operation === "insert"){
-            result[sco] = this.state.replacestring + data[sco]
+            result[scope] = replacestring + data[scope]
           }else if (operation === "append"){
-            result[sco] = data[sco] + this.state.replacestring
+            result[scope] = data[scope] + replacestring
           }else{
-            result[sco] = data[sco].replace(searchquery, this.state.replacestring)
+            let nth = -1
+            result[scope] = data[scope].replace(searchquery, function (x) {
+              nth++
+              if (count === nth){
+                return replacestring;
+              }
+              return x;
+            })
+          }
+          data[scope] = result[scope]
+        }
+        const newproducts = this.state.products.map(p=>{
+          if(data.id === p.node.id) return {...p, node: data}
+          return p
+        })
+        this.setState({products:newproducts, productList:this.ConvertDatatoTable(this.state.products,this.state.cursor)})
+        return result
+      }
+      this.state.scopes.map(sco=>{
+        if(sco==="tags"){
+          if (operation === "insert"){
+            result[sco] = [ replacestring, ...data[sco]]
+          }else if (operation === "append"){
+            result[sco] = [...data[sco], replacestring]
+          }else{
+            result[sco] = data[sco].map(tag=>tag.replace(searchquery, replacestring))
+          }
+        }else if(sco==="description"){
+          if (operation === "insert"){
+            result[sco] = `<p>${replacestring}</p><p>` + data[sco] + '</p>'
+          }else if (operation === "append"){
+            result[sco] = '<p>' + data[sco] + `</p><p>${replacestring}</p>`
+          }else{
+            result["descriptionHtml"] = '<p>' + data[sco].replace(searchquery, replacestring) + '</p>'
+          }
+        }else{
+          if (operation === "insert"){
+            result[sco] = replacestring + data[sco]
+          }else if (operation === "append"){
+            result[sco] = data[sco] + replacestring
+          }else{
+            result[sco] = data[sco].replace(searchquery, replacestring)
           }
         }
       })
-      console.log(result)
       return result
     }
 
-    InjectHighlight = (text) => {
+    
+    InjectHighlight = (text, count) => {
       if (!text){
         return "NA"
       }
       const replace = this.getRegex(this.state.searchquery);
+      let nth = -1
       return (
-        <span
-          dangerouslySetInnerHTML={{
-            __html : text.replace(replace, function (x) {
+        <span dangerouslySetInnerHTML={{ __html : text.replace(replace, function (x) {
+              nth++
+              if (count !== undefined && count === nth){
+                console.log(count, text)
+                return `<span style="background-color:#3297FD; color:white">${x}</span>`;
+              }
               return `<span style="background-color:yellow">${x}</span>`;
             })
           }} />
       )
     }
 
-    ConvertDatatoTable = (data) =>{
+    HandleTagDisplay(node){
+      return {...node, tags:node.tags.join("/n") }
+    }
+
+    FindTextByCursor(data, cursor){
+      console.log("find cursor")
+      let counter = 0
+      let result
+      const replace = this.getRegex(this.state.searchquery);
+      for (let index = 0; index < data.length; index++) {
+        const node = this.HandleTagDisplay(data[index].node);
+        for (let scoid = 0; scoid < this.state.scopes.length; scoid++) {
+          const sco = this.state.scopes[scoid]
+          const count = node[sco].match(replace) ? node[sco].match(replace).length : 0
+          if (result === undefined && count + counter > cursor){
+            result = {index:index ,sco: sco, count : (cursor - counter) }
+          }
+          counter += count
+        }
+      }
+      return {...result, total:counter}
+    }
+    //format data to display in table
+    ConvertDatatoTable = (data, cursor) =>{
+      console.log("convert data")
       if (!data || data.length < 1){
         return [[]]
       }
-      return data.map(item=>{
-        const node = item.node
-        return this.getHeader().map(sco=>{
-          if(sco==="tags"){
-            if (this.state.scopes.findIndex(scope=>sco===scope)==-1){
-              return node[sco].join("/n")
-            }
-            return this.InjectHighlight(node[sco].join("/n"))
-          }
-          if (this.state.scopes.findIndex(scope=>sco===scope)==-1){
+      const currentCursor = this.FindTextByCursor(data, cursor)
+      console.log(currentCursor)
+      this.setState({total: currentCursor.total})
+      return data.map((item,id)=>{
+        const node = this.HandleTagDisplay(item.node)
+        return this.getHeader().map((sco)=>{
+          if(this.state.scopes.findIndex(sc=>sc===sco)===-1){
             return node[sco]
+          }
+          if(id===currentCursor.index && sco === currentCursor.sco){
+            return this.InjectHighlight(node[sco],currentCursor.count)
           }
           return this.InjectHighlight(node[sco])
         })
       })
     }
+
+
+
+
+    next(){
+      const cursor = this.state.cursor+1 >= this.state.total ? 0 : this.state.cursor + 1 
+      this.setState({productList: this.ConvertDatatoTable(this.state.products, cursor), cursor})
+    }
+    previous(){
+      const cursor = this.state.cursor-1 < 0 ? this.state.total - 1 : this.state.cursor - 1 
+      this.setState({productList: this.ConvertDatatoTable(this.state.products, cursor), cursor})
+    }
     
     render() {
       const app = this.context;
       const placeholder = {
-        "find": "Replace with",
-        "insert": "Insert text",
-        "append": "Append text"
+        "replace": "Replace",
+        "insert": "Insert",
+        "append": "Append"
       }
     return (
       <Page fullWidth>
       <Frame>
         <div className="form-container">
+          {(this.state.loading || this.state.fetching) && <Loading />}
+          <h3><b>Search keywords: </b></h3>
+          <div className="form-row find-text">
+            <div className="form-input" >
+              <TextField placeholder="Find" value={this.state.searchquery} onChange={this.handleChange('searchquery')} />
+            </div>
+            <Button className="" onClick={this.previous.bind(this)}> <FontAwesomeIcon icon={faChevronUp} /> </Button>
+            <Button className="" onClick={this.next.bind(this)}> <FontAwesomeIcon icon={faChevronDown} /> </Button>
+            {(!this.state.total && this.state.searchquery !== "") && (<p style={{color:"red", fontWeight: "bold"}}>No result</p>)}
+            {(this.state.total > 0 && this.state.searchquery !== "") && (<p style={{fontWeight: "bold"}}>{this.state.cursor + 1} of {this.state.total}</p>)}
+          </div>
+          
+          <h3><b>In fields: </b></h3>
+          <div className="form-row field-list">
+              <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />
+              <Checkbox label="Handle" checked={this.isScopeSelected('handle')} onChange={this.handleScopeSelect('handle')} />
+              <Checkbox label="Product types" checked={this.isScopeSelected('productType')} onChange={this.handleScopeSelect('productType')} />
+              <Checkbox label="Vendor" checked={this.isScopeSelected('vendor')} onChange={this.handleScopeSelect('vendor')} />
+              <Checkbox label="Tags" checked={this.isScopeSelected('tags')} onChange={this.handleScopeSelect('tags')} />
+              <Checkbox label="Description" checked={this.isScopeSelected('description')} onChange={this.handleScopeSelect('description')} />
+          </div>
+          <hr/>
+          {/* <h3><b>Variant fields</b>(not in use): </h3>
+          <div className="form-row">
+              <Checkbox label="Price" disabled checked={this.isScopeSelected('price',1)} onChange={this.handleScopeSelect('price',1)} />
+              <Checkbox label="SKU" disabled checked={this.isScopeSelected('sku',1)} onChange={this.handleScopeSelect('sku',1)} />
+          </div> */}
+
 
           <h3><b>Operation: </b></h3>
           <div className="form-row">
             <ChoiceList
-              // title="Operation: "
               choices={[
-                {label: 'Find and Place', value: 'find'},
+                {label: 'Place keywords', value: 'replace'},
                 {label: 'Insert in front', value: 'insert'},
                 {label: 'Append to end', value: 'append'},
               ]}
@@ -263,38 +420,27 @@ class Index extends React.Component {
             />
           </div>
 
-          {this.state.operation === 'find' && <div className="form-row">
+          <div className="form-row replace-text">
             <div className="form-input" >
-              <TextField placeholder="Find" value={this.state.searchquery} onChange={this.handleChange('searchquery')} />
+              <TextField placeholder={placeholder[this.state.operation] + " text"}  value={this.state.replacestring} onChange={this.handleChange('replacestring')} />
             </div>
-          </div>}
-          
-          <h3><b>In fields: </b></h3>
-          <div className="form-row">
-              <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />
-              <Checkbox label="Handle" checked={this.isScopeSelected('handle')} onChange={this.handleScopeSelect('handle')} />
-              <Checkbox label="Product types" checked={this.isScopeSelected('productType')} onChange={this.handleScopeSelect('productType')} />
-              <Checkbox label="Vendor" checked={this.isScopeSelected('vendor')} onChange={this.handleScopeSelect('vendor')} />
-              <Checkbox label="Tags" checked={this.isScopeSelected('tags')} onChange={this.handleScopeSelect('tags')} />
-              <Checkbox label="Description" checked={this.isScopeSelected('description')} onChange={this.handleScopeSelect('description')} />
+
+            <Button className="form-button" loading={this.state.loading} onClick={this.handleReplace.bind(this)}>{placeholder[this.state.operation]} </Button>
+            <Button className="form-button" loading={this.state.loading} onClick={this.handleReplaceAll.bind(this)}>{placeholder[this.state.operation]} all</Button>
           </div>
 
-          <h3><b>Variant fields</b>(not in use): </h3>
-          <div className="form-row">
-              <Checkbox label="Price" disabled checked={this.isScopeSelected('price',true)} onChange={this.handleScopeSelect('price',true)} />
-              <Checkbox label="SKU" disabled checked={this.isScopeSelected('sku',true)} onChange={this.handleScopeSelect('sku',true)} />
-          </div>
+          {/* {this.state.operation !== "replace" && <div><h3><b>{placeholder[this.state.operation]} in fields: </b></h3>
+          <div className="form-row field-list">
+              <Checkbox label="Title" checked={this.isScopeSelected('title', 2)} onChange={this.handleScopeSelect('title', 2)} />
+              <Checkbox label="Handle" checked={this.isScopeSelected('handle', 2)} onChange={this.handleScopeSelect('handle', 2)} />
+              <Checkbox label="Product types" checked={this.isScopeSelected('productType', 2)} onChange={this.handleScopeSelect('productType', 2)} />
+              <Checkbox label="Vendor" checked={this.isScopeSelected('vendor', 2)} onChange={this.handleScopeSelect('vendor', 2)} />
+              <Checkbox label="Tags" checked={this.isScopeSelected('tags', 2)} onChange={this.handleScopeSelect('tags', 2)} />
+              <Checkbox label="Description" checked={this.isScopeSelected('description', 2)} onChange={this.handleScopeSelect('description', 2)} />
+          </div></div>} */}
 
-          <div className="form-row">
-            <div className="form-input" >
-              <TextField placeholder={placeholder[this.state.operation]}  value={this.state.replacestring} onChange={this.handleChange('replacestring')} />
-            </div>
-            <Button className="form-button" loading={this.state.loading} onClick={this.handleReplace.bind(this)}>Replace </Button>
-            {/* <Button className="form-button" loading={this.state.loading} onClick={this.handleReplace.bind(this)}>Replace all</Button> */}
-          </div>
-
-
-          <div className="form-row">
+          <h3><b>Options: </b></h3>
+          <div className="form-row option-list">
             <Checkbox label="Match case" checked={this.state.matchcase} onChange={this.handleChange('matchcase')} />
             <a  className="form-item" onClick={this.toggleFavorite.bind(this)} >
               <Icon source={this.state.saved ? StarFilledMinor : StarOutlineMinor} />
@@ -307,7 +453,7 @@ class Index extends React.Component {
           <DataTable
             columnContentTypes={this.getHeaderType()}
             headings={this.getHeader()}
-            rows={this.ConvertDatatoTable(this.state.products)}
+            rows={this.state.productList}
           />
         </Card>
         {this.state.showtoast ? (<Toast content={this.state.toastcontent} onDismiss={() => this.setState({showtoast:false})} />) : null}

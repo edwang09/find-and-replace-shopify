@@ -130,9 +130,7 @@ class Favorite extends React.Component {
     }
     filterQuery(searchquery, scopes, matchcase, operation){
         return new Promise((resolve, reject)=>{
-            if(operation==="insert" || operation ==="append"){
-                return this.state.allproducts
-            }else if(searchquery!=="" && (scopes.length !== 0) && (this.state.allproducts.length !== 0) ){
+            if(searchquery!=="" && (scopes.length !== 0) && (this.state.allproducts.length !== 0) ){
               const currentproducts = this.state.allproducts.filter(prod=>{
                 const regx = this.getRegex(searchquery,matchcase)
                 return scopes.some(sco=>{
@@ -300,9 +298,9 @@ class Favorite extends React.Component {
                     onAction: ()=>this.removeFavorite(key),
                 }]
             const title = {
-                "find": `Find "${searchquery}"`,
-                "insert": "Insert in front",
-                "append": "Append to end"
+                "replace": "Replace with",
+                "insert": "Insert in front with",
+                "append": "Append to end with"
                 }
             return (
                 <ResourceItem
@@ -313,10 +311,10 @@ class Favorite extends React.Component {
                 name={searchquery}
                 >
                 <h3>
-                <TextStyle variation="strong">{title[operation]} | </TextStyle>
+                <TextStyle variation="strong">{`Find "${searchquery}"`} | </TextStyle>
                 <TextStyle variation="subdued">in ({scopes.toString()})</TextStyle>
                 </h3>
-                <div>{searchquery==='find' ? "Replace" : "" } with :"{replacestring}" {matchcase ? "(Case Sensitive)" : "(Case Insensitive)"}</div>
+                <div>{title[operation]}:"{replacestring}" {matchcase ? "(Case Sensitive)" : "(Case Insensitive)"}</div>
                 </ResourceItem>
             );
             }}
