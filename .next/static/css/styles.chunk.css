@@ -8745,5 +8745,10 @@ body{
     display: flex;
     align-items: center;
 }
+h3.select-all > button{
+    margin-top: 5px;
+    padding: .2rem .4rem;
+    min-height: auto;
+}
 
 /*# sourceMappingURL=styles.chunk.css.map*/

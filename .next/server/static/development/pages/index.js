@@ -471,7 +471,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
           saved
         });
 
-        if (field && field !== "operation" && field !== "replacestring") {
+        if (true) {
           this.filterQuery();
         }
       });
@@ -547,6 +547,10 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       const {
         operation
       } = this.state;
+
+      if (operation === "delete") {
+        replacestring = "";
+      }
 
       if (scope !== undefined) {
         console.log(scope, count);
@@ -660,19 +664,49 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       }
 
       const replace = this.getRegex(this.state.searchquery);
+      const operation = this.state.operation;
+      let insert = "",
+          append = "";
+
+      if (count !== undefined && operation === "insert") {
+        insert = `<span style="color:orange">${this.state.replacestring}</span>`;
+      } else if (count !== undefined && operation === "append") {
+        append = `<span style="color:orange">${this.state.replacestring}</span>`;
+      }
+
+      const replacestring = this.state.replacestring !== "" ? this.state.replacestring : null;
       let nth = -1;
       return __jsx("span", {
         dangerouslySetInnerHTML: {
-          __html: text.replace(replace, function (x) {
+          __html: insert + text.replace(replace, function (x) {
             nth++;
 
-            if (count !== undefined && count === nth) {
-              console.log(count, text);
-              return `<span style="background-color:#3297FD; color:white">${x}</span>`;
-            }
+            switch (operation) {
+              case "replace":
+                if (count !== undefined && count === nth) {
+                  console.log(count, text);
+                  return `<span style="background-color:#3297FD; color:white">${replacestring ? replacestring : x}</span>`;
+                }
 
-            return `<span style="background-color:yellow">${x}</span>`;
-          })
+                return `<span style="background-color:yellow">${x}</span>`;
+
+              case "delete":
+                if (count !== undefined && count === nth) {
+                  console.log(count, text);
+                  return `<span style="background-color:#3297FD; color:white; text-decoration: line-through;">${x}</span>`;
+                }
+
+                return `<span style="background-color:yellow">${x}</span>`;
+
+              default:
+                if (count !== undefined && count === nth) {
+                  console.log(count, text);
+                  return `<span style="background-color:#3297FD; color:white">${x}</span>`;
+                }
+
+                return `<span style="background-color:yellow">${x}</span>`;
+            }
+          }) + append
         }
       });
     });
@@ -845,12 +879,25 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
     });
   }
 
+  selectAll() {
+    if (this.state.scopes.length === 6) {
+      this.setState({
+        scopes: []
+      });
+    } else {
+      this.setState({
+        scopes: ["title", "handle", "productType", "vendor", "tags", "description"]
+      });
+    }
+  }
+
   render() {
     const app = this.context;
     const placeholder = {
       "replace": "Replace",
       "insert": "Insert",
-      "append": "Append"
+      "append": "Append",
+      "delete": "Delete"
     };
     return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Page"], {
       fullWidth: true
@@ -883,7 +930,11 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       style: {
         fontWeight: "bold"
       }
-    }, this.state.cursor + 1, " of ", this.state.total)), __jsx("h3", null, __jsx("b", null, "In fields: ")), __jsx("div", {
+    }, this.state.cursor + 1, " of ", this.state.total)), __jsx("h3", {
+      className: "select-all"
+    }, __jsx("b", null, "In fields: "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+      onClick: this.selectAll.bind(this)
+    }, "select all")), __jsx("div", {
       className: "form-row field-list"
     }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Checkbox"], {
       label: "Title",
@@ -921,6 +972,9 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       }, {
         label: 'Append to end',
         value: 'append'
+      }, {
+        label: 'Remove keywords',
+        value: 'delete'
       }],
       selected: this.state.operation,
       onChange: this.handleChange('operation')

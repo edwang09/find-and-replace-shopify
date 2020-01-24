@@ -145,7 +145,7 @@ class Index extends React.Component {
         const hashedfav = Object.keys(searchform).sort().map(x => searchform[x].toString()).join(";");
         const saved = store.get('favorite') && store.get('favorite')[hashedfav]
         this.setState({ saved })
-        if (field && field!=="operation" && field!=="replacestring"){
+        if (true || (field && field!=="operation" && field!=="replacestring")){
           this.filterQuery()
         }
       })
@@ -197,9 +197,12 @@ class Index extends React.Component {
     //handle data manipulation
     transformData = (data, scope, count)=>{
       const searchquery = this.getRegex(this.state.searchquery);
-      const replacestring = this.state.replacestring
+      const replacestring =  this.state.replacestring
       let result = {id:data.id}
       const { operation } = this.state
+      if (operation === "delete"){
+        replacestring = ""
+      }
       if(scope!== undefined ){
         console.log(scope, count)
         if(scope==="tags"){
@@ -296,16 +299,39 @@ class Index extends React.Component {
         return "NA"
       }
       const replace = this.getRegex(this.state.searchquery);
+      const operation = this.state.operation
+      let insert = "", append = ""
+      if (count !== undefined && operation === "insert"){
+        insert = `<span style="color:orange">${this.state.replacestring}</span>`
+      }else if (count !== undefined && operation === "append"){
+        append = `<span style="color:orange">${this.state.replacestring}</span>`
+      }
+      const replacestring = this.state.replacestring !== "" ? this.state.replacestring : null
       let nth = -1
       return (
-        <span dangerouslySetInnerHTML={{ __html : text.replace(replace, function (x) {
+        <span dangerouslySetInnerHTML={{ __html : insert + text.replace(replace, function (x) {
               nth++
-              if (count !== undefined && count === nth){
-                console.log(count, text)
-                return `<span style="background-color:#3297FD; color:white">${x}</span>`;
+              switch (operation) {
+                case "replace":
+                  if (count !== undefined && count === nth){
+                    console.log(count, text)
+                    return `<span style="background-color:#3297FD; color:white">${replacestring ? replacestring : x}</span>`;
+                  }
+                  return `<span style="background-color:yellow">${x}</span>`;
+                case "delete":
+                  if (count !== undefined && count === nth){
+                    console.log(count, text)
+                    return `<span style="background-color:#3297FD; color:white; text-decoration: line-through;">${x}</span>`;
+                  }
+                  return `<span style="background-color:yellow">${x}</span>`;
+                default:
+                  if (count !== undefined && count === nth){
+                    console.log(count, text)
+                    return `<span style="background-color:#3297FD; color:white">${x}</span>`;
+                  }
+                  return `<span style="background-color:yellow">${x}</span>`;
               }
-              return `<span style="background-color:yellow">${x}</span>`;
-            })
+            }) + append
           }} />
       )
     }
@@ -366,13 +392,18 @@ class Index extends React.Component {
       const cursor = this.state.cursor-1 < 0 ? this.state.total - 1 : this.state.cursor - 1 
       this.setState({productList: this.ConvertDatatoTable(this.state.products, cursor), cursor})
     }
+    selectAll(){
+      if(this.state.scopes.length === 6){ this.setState({scopes:[]})}
+      else {this.setState({scopes:["title", "handle", "productType", "vendor", "tags", "description"]})}
+    }
     
     render() {
       const app = this.context;
       const placeholder = {
         "replace": "Replace",
         "insert": "Insert",
-        "append": "Append"
+        "append": "Append",
+        "delete": "Delete"
       }
     return (
       <Page fullWidth>
@@ -390,7 +421,7 @@ class Index extends React.Component {
             {(this.state.total > 0 && this.state.searchquery !== "") && (<p style={{fontWeight: "bold"}}>{this.state.cursor + 1} of {this.state.total}</p>)}
           </div>
           
-          <h3><b>In fields: </b></h3>
+          <h3 className="select-all"><b>In fields: </b><Button onClick={this.selectAll.bind(this)}>select all</Button></h3>
           <div className="form-row field-list">
               <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />
               <Checkbox label="Handle" checked={this.isScopeSelected('handle')} onChange={this.handleScopeSelect('handle')} />
@@ -414,6 +445,7 @@ class Index extends React.Component {
                 {label: 'Place keywords', value: 'replace'},
                 {label: 'Insert in front', value: 'insert'},
                 {label: 'Append to end', value: 'append'},
+                {label: 'Remove keywords', value: 'delete'},
               ]}
               selected={this.state.operation}
               onChange={this.handleChange('operation')}

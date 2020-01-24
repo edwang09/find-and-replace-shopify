@@ -149,6 +149,9 @@ class Favorite extends React.Component {
       }
     runFavorite(key){
         const  {searchquery, replacestring, scopes, matchcase, operation} = this.state.favorites[key]
+        if (operation === "delete"){
+            replacestring = ""
+          }
         this.setState({ loading:key })
         this.filterQuery(searchquery, scopes, matchcase, operation)
         .then(response=>{
@@ -218,6 +221,9 @@ class Favorite extends React.Component {
         let count = bundles
         bundle.map(fav => {
             const  {searchquery, replacestring, scopes, matchcase, operation} = fav
+            if (operation === "delete"){
+                replacestring = ""
+              }
             this.filterQuery(searchquery, scopes, matchcase, operation)
             .then(response=>{
                 console.log(response)
