@@ -148,7 +148,7 @@ class Favorite extends React.Component {
         })
       }
     runFavorite(key){
-        const  {searchquery, replacestring, scopes, matchcase, operation} = this.state.favorites[key]
+        let {searchquery, replacestring, scopes, matchcase, operation} = this.state.favorites[key]
         if (operation === "delete"){
             replacestring = ""
           }
@@ -220,7 +220,7 @@ class Favorite extends React.Component {
         const bundles = bundle.length
         let count = bundles
         bundle.map(fav => {
-            const  {searchquery, replacestring, scopes, matchcase, operation} = fav
+            let  {searchquery, replacestring, scopes, matchcase, operation} = fav
             if (operation === "delete"){
                 replacestring = ""
               }

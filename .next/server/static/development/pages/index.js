@@ -400,7 +400,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       products: [],
       productList: [],
       allproducts: [],
-      operation: 'replace',
+      operation: '',
       cursor: 0,
       total: 0
     });
@@ -421,7 +421,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
     });
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "toggleFavorite", () => {
-      console.log("toggle fav");
+      // console.log("toggle fav")
       const favorite = store_js__WEBPACK_IMPORTED_MODULE_8___default.a.get('favorite');
 
       const searchform = lodash__WEBPACK_IMPORTED_MODULE_12___default.a.pick(this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes', 'operation']);
@@ -430,13 +430,13 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
 
       if (!this.state.saved) {
         if (!store_js__WEBPACK_IMPORTED_MODULE_8___default.a.get('favorite')) {
-          console.log("no current fav");
-          console.log("hashedfav:" + hashedfav);
+          // console.log("no current fav")
+          // console.log("hashedfav:" + hashedfav)
           store_js__WEBPACK_IMPORTED_MODULE_8___default.a.set("favorite", {
             [hashedfav]: searchform
           });
         } else {
-          console.log(store_js__WEBPACK_IMPORTED_MODULE_8___default.a.get('favorite'));
+          // console.log(store.get('favorite'))
           store_js__WEBPACK_IMPORTED_MODULE_8___default.a.set("favorite", _objectSpread({}, favorite, {
             [hashedfav]: searchform
           }));
@@ -494,7 +494,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
             input: this.transformData(item.node)
           }
         }).then(response => {
-          console.log(response);
+          // console.log(response)
           count -= 1;
 
           if (count === 0) {
@@ -519,8 +519,8 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       this.setState({
         loading: true
       });
-      const currentCursor = this.FindTextByCursor(this.state.products, this.state.cursor);
-      console.log(currentCursor);
+      const currentCursor = this.FindTextByCursor(this.state.products, this.state.cursor); // console.log(currentCursor)
+
       const promises = this.state.products.length;
       let count = promises;
       this.props.apolloClient.mutate({
@@ -529,7 +529,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
           input: this.transformData(this.state.products[currentCursor.index].node, currentCursor.sco, currentCursor.count)
         }
       }).then(response => {
-        console.log(response);
+        // console.log(response)
         this.setState({
           loading: false,
           showtoast: true,
@@ -540,21 +540,20 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "transformData", (data, scope, count) => {
       const searchquery = this.getRegex(this.state.searchquery);
-      const replacestring = this.state.replacestring;
+      let replacestring = this.state.replacestring;
       let result = {
         id: data.id
       };
       const {
         operation
-      } = this.state;
+      } = this.state; // console.log(operation)
 
       if (operation === "delete") {
         replacestring = "";
       }
 
       if (scope !== undefined) {
-        console.log(scope, count);
-
+        // console.log(scope, count)
         if (scope === "tags") {
           if (operation === "insert") {
             result[scope] = [replacestring, ...data[scope]];
@@ -684,7 +683,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
             switch (operation) {
               case "replace":
                 if (count !== undefined && count === nth) {
-                  console.log(count, text);
+                  // console.log(count, text)
                   return `<span style="background-color:#3297FD; color:white">${replacestring ? replacestring : x}</span>`;
                 }
 
@@ -692,7 +691,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
 
               case "delete":
                 if (count !== undefined && count === nth) {
-                  console.log(count, text);
+                  // console.log(count, text)
                   return `<span style="background-color:#3297FD; color:white; text-decoration: line-through;">${x}</span>`;
                 }
 
@@ -700,7 +699,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
 
               default:
                 if (count !== undefined && count === nth) {
-                  console.log(count, text);
+                  // console.log(count, text)
                   return `<span style="background-color:#3297FD; color:white">${x}</span>`;
                 }
 
@@ -712,14 +711,16 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
     });
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(this, "ConvertDatatoTable", (data, cursor) => {
-      console.log("convert data");
-
+      // console.log("convert data")
       if (!data || data.length < 1) {
+        this.setState({
+          total: 0
+        });
         return [[]];
       }
 
-      const currentCursor = this.FindTextByCursor(data, cursor);
-      console.log(currentCursor);
+      const currentCursor = this.FindTextByCursor(data, cursor); // console.log(currentCursor)
+
       this.setState({
         total: currentCursor.total
       });
@@ -753,7 +754,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
   }
 
   async fetchQuery() {
-    console.log("fetch");
+    // console.log("fetch")
     this.setState({
       fetching: true
     });
@@ -763,8 +764,8 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
     while (fetch) {
       const response = await this.props.apolloClient.query({
         query: Object(_components_graphql__WEBPACK_IMPORTED_MODULE_14__["constructListproduct"])(cursor)
-      });
-      console.log(response.data);
+      }); // console.log(response.data)
+
       fetch = response.data.products.pageInfo.hasNextPage;
       cursor = response.data.products.edges[response.data.products.edges.length - 1].cursor;
       this.setState({
@@ -778,9 +779,8 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
   }
 
   filterQuery() {
-    console.log("filter");
-    console.log(this.state.allproducts);
-
+    // console.log("filter")
+    // console.log(this.state.allproducts)
     if (this.state.searchquery !== "" && this.state.scopes.length + this.state.scopesV.length !== 0 && this.state.allproducts !== 0) {
       const currentproducts = this.state.allproducts.filter(prod => {
         const regx = this.getRegex(this.state.searchquery);
@@ -791,8 +791,8 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
 
           return prod.node[sco].search(regx) > -1;
         });
-      });
-      console.log(currentproducts);
+      }); // console.log(currentproducts)
+
       this.setState({
         products: currentproducts,
         productList: this.ConvertDatatoTable(currentproducts, 0),
@@ -833,7 +833,7 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
   }
 
   FindTextByCursor(data, cursor) {
-    console.log("find cursor");
+    // console.log("find cursor")
     let counter = 0;
     let result;
     const replace = this.getRegex(this.state.searchquery);
@@ -893,44 +893,17 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
 
   render() {
     const app = this.context;
-    const placeholder = {
-      "replace": "Replace",
-      "insert": "Insert",
-      "append": "Append",
-      "delete": "Delete"
-    };
+    const {
+      operation,
+      searchquery,
+      loading,
+      replacestring
+    } = this.state;
     return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Page"], {
       fullWidth: true
     }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Frame"], null, __jsx("div", {
       className: "form-container"
-    }, (this.state.loading || this.state.fetching) && __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Loading"], null), __jsx("h3", null, __jsx("b", null, "Search keywords: ")), __jsx("div", {
-      className: "form-row find-text"
-    }, __jsx("div", {
-      className: "form-input"
-    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["TextField"], {
-      placeholder: "Find",
-      value: this.state.searchquery,
-      onChange: this.handleChange('searchquery')
-    })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
-      className: "",
-      onClick: this.previous.bind(this)
-    }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_15__["FontAwesomeIcon"], {
-      icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_16__["faChevronUp"]
-    }), " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
-      className: "",
-      onClick: this.next.bind(this)
-    }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_15__["FontAwesomeIcon"], {
-      icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_16__["faChevronDown"]
-    }), " "), !this.state.total && this.state.searchquery !== "" && __jsx("p", {
-      style: {
-        color: "red",
-        fontWeight: "bold"
-      }
-    }, "No result"), this.state.total > 0 && this.state.searchquery !== "" && __jsx("p", {
-      style: {
-        fontWeight: "bold"
-      }
-    }, this.state.cursor + 1, " of ", this.state.total)), __jsx("h3", {
+    }, (this.state.loading || this.state.fetching) && __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Loading"], null), __jsx("h3", {
       className: "select-all"
     }, __jsx("b", null, "In fields: "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
       onClick: this.selectAll.bind(this)
@@ -960,7 +933,34 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
       label: "Description",
       checked: this.isScopeSelected('description'),
       onChange: this.handleScopeSelect('description')
-    })), __jsx("hr", null), __jsx("h3", null, __jsx("b", null, "Operation: ")), __jsx("div", {
+    })), __jsx("h3", null, __jsx("b", null, "Search keywords: ")), __jsx("div", {
+      className: "form-row find-text"
+    }, __jsx("div", {
+      className: "form-input"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["TextField"], {
+      placeholder: "Find",
+      value: searchquery,
+      onChange: this.handleChange('searchquery')
+    })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+      className: "",
+      onClick: this.previous.bind(this)
+    }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_15__["FontAwesomeIcon"], {
+      icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_16__["faChevronUp"]
+    }), " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+      className: "",
+      onClick: this.next.bind(this)
+    }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_15__["FontAwesomeIcon"], {
+      icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_16__["faChevronDown"]
+    }), " "), !this.state.total && searchquery !== "" && __jsx("p", {
+      style: {
+        color: "red",
+        fontWeight: "bold"
+      }
+    }, "No result"), this.state.total > 0 && searchquery !== "" && __jsx("p", {
+      style: {
+        fontWeight: "bold"
+      }
+    }, this.state.cursor + 1, " of ", this.state.total)), __jsx("hr", null), __jsx("h3", null, __jsx("b", null, "Operation: ")), __jsx("div", {
       className: "form-row"
     }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["ChoiceList"], {
       choices: [{
@@ -976,25 +976,26 @@ class Index extends react__WEBPACK_IMPORTED_MODULE_7___default.a.Component {
         label: 'Remove keywords',
         value: 'delete'
       }],
-      selected: this.state.operation,
+      selected: operation,
       onChange: this.handleChange('operation')
-    })), __jsx("div", {
+    })), operation && __jsx("div", {
       className: "form-row replace-text"
-    }, __jsx("div", {
+    }, (operation === "replace" || operation === "insert" || operation === "append") && __jsx("div", {
       className: "form-input"
     }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["TextField"], {
-      placeholder: placeholder[this.state.operation] + " text",
-      value: this.state.replacestring,
+      placeholder: operation + " text",
+      disabled: operation === "delete",
+      value: replacestring,
       onChange: this.handleChange('replacestring')
     })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
       className: "form-button",
-      loading: this.state.loading,
+      loading: loading,
       onClick: this.handleReplace.bind(this)
-    }, placeholder[this.state.operation], " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+    }, operation, " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Button"], {
       className: "form-button",
-      loading: this.state.loading,
+      loading: loading,
       onClick: this.handleReplaceAll.bind(this)
-    }, placeholder[this.state.operation], " all")), __jsx("h3", null, __jsx("b", null, "Options: ")), __jsx("div", {
+    }, operation, " all")), __jsx("h3", null, __jsx("b", null, "Options: ")), __jsx("div", {
       className: "form-row option-list"
     }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_9__["Checkbox"], {
       label: "Match case",
