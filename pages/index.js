@@ -1,4 +1,5 @@
 import store from 'store-js';
+import { Welcome, Tutorial} from './tutorial'
 import { 
   Card,
   Page,
@@ -10,7 +11,8 @@ import {
   Frame,
   Toast,
   ChoiceList,
-  Loading
+  Loading,
+  Modal
 } from '@shopify/polaris';
 import {
   StarFilledMinor,
@@ -40,9 +42,15 @@ class Index extends React.Component {
         allproducts:[],
         operation: '',
         cursor: 0,
-        total : 0
+        total : 0,
+        tutorial: -1
     }
     componentDidMount(){
+      const tutorial = store.get('tutorial')
+      this.setState({tutorial:0})
+      if(tutorial===undefined || tutorial>-1){
+        this.setState({tutorial:0})
+      }
       this.fetchQuery()
     }
     getRegexCase(){return this.state.matchcase ? "g" : "gi"}
@@ -398,77 +406,113 @@ class Index extends React.Component {
       if(this.state.scopes.length === 6){ this.setState({scopes:[]})}
       else {this.setState({scopes:["title", "handle", "productType", "vendor", "tags", "description"]})}
     }
+    handleTutorialChange = (type) => () => {
+      console.log("tutorial change")
+      const tutorial = this.state.tutorial
+      switch (type) {
+        case "next":
+          if (tutorial === 8){
+            this.setState({tutorial:-1})
+            store.set("tutorial",-1)
+          }else{
+            this.setState({tutorial:tutorial + 1})
+          }
+          break;
+        case "close":
+          this.setState({tutorial:-1})
+          store.set("tutorial",-1)
+          break;
+        case "previous":
+            this.setState({tutorial:tutorial - 1})
+            break;
+        default:
+          break;
+      }
+    }
     
     render() {
       const app = this.context;
-      const {operation, searchquery, loading, replacestring} = this.state
+      const {operation, searchquery, loading, replacestring, tutorial} = this.state
 
     return (
       <Page fullWidth>
       <Frame>
+        <Welcome tutorial={tutorial} handleChange={this.handleTutorialChange}/>
         <div className="form-container">
-          {(this.state.loading || this.state.fetching) && <Loading />}
-          <h3 className="select-all"><b>In fields: </b><Button onClick={this.selectAll.bind(this)}>select all</Button></h3>
-          <div className="form-row field-list">
-              <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />
-              <Checkbox label="Handle" checked={this.isScopeSelected('handle')} onChange={this.handleScopeSelect('handle')} />
-              <Checkbox label="Product types" checked={this.isScopeSelected('productType')} onChange={this.handleScopeSelect('productType')} />
-              <Checkbox label="Vendor" checked={this.isScopeSelected('vendor')} onChange={this.handleScopeSelect('vendor')} />
-              <Checkbox label="Tags" checked={this.isScopeSelected('tags')} onChange={this.handleScopeSelect('tags')} />
-              <Checkbox label="Description" checked={this.isScopeSelected('description')} onChange={this.handleScopeSelect('description')} />
-          </div>
+          {(tutorial > 0) && <div className = "overlay"></div>}
+          <div className="form">
+            {(this.state.loading || this.state.fetching) && <Loading />}
 
-          <h3><b>Search keywords: </b></h3>
-          <div className="form-row find-text">
-            <div className="form-input" >
-              <TextField placeholder="Find" value={searchquery} onChange={this.handleChange('searchquery')} />
+            <div className={(tutorial === 1) ? "section focused" : "section"}>
+                <h3 className="select-all"><b>In fields: </b><Button onClick={this.selectAll.bind(this)}>select all</Button></h3>
+                <div className="form-row field-list">
+                    <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />
+                    <Checkbox label="Handle" checked={this.isScopeSelected('handle')} onChange={this.handleScopeSelect('handle')} />
+                    <Checkbox label="Product types" checked={this.isScopeSelected('productType')} onChange={this.handleScopeSelect('productType')} />
+                    <Checkbox label="Vendor" checked={this.isScopeSelected('vendor')} onChange={this.handleScopeSelect('vendor')} />
+                    <Checkbox label="Tags" checked={this.isScopeSelected('tags')} onChange={this.handleScopeSelect('tags')} />
+                    <Checkbox label="Description" checked={this.isScopeSelected('description')} onChange={this.handleScopeSelect('description')} />
+                </div>
             </div>
-            <Button className="" onClick={this.previous.bind(this)}> <FontAwesomeIcon icon={faChevronUp} /> </Button>
-            <Button className="" onClick={this.next.bind(this)}> <FontAwesomeIcon icon={faChevronDown} /> </Button>
-            {(!this.state.total && searchquery !== "") && (<p style={{color:"red", fontWeight: "bold"}}>No result</p>)}
-            {(this.state.total > 0 && searchquery !== "") && (<p style={{fontWeight: "bold"}}>{this.state.cursor + 1} of {this.state.total}</p>)}
+
+            <div className={(tutorial === 2) ? "section focused" : "section"}>
+              <h3><b>Search keywords: </b></h3>
+              <div className="form-row find-text">
+                <div className="form-input" >
+                  <TextField placeholder="Find" value={searchquery} onChange={this.handleChange('searchquery')} />
+                </div>
+                <Button className="" onClick={this.previous.bind(this)}> <FontAwesomeIcon icon={faChevronUp} /> </Button>
+                <Button className="" onClick={this.next.bind(this)}> <FontAwesomeIcon icon={faChevronDown} /> </Button>
+                {(!this.state.total && searchquery !== "") && (<p style={{color:"red", fontWeight: "bold"}}>No result</p>)}
+                {(this.state.total > 0 && searchquery !== "") && (<p style={{fontWeight: "bold"}}>{this.state.cursor + 1} of {this.state.total}</p>)}
+              </div>
+            </div>
+
+            {/* <h3><b>Variant fields</b>(not in use): </h3>
+            <div className="form-row">
+                <Checkbox label="Price" disabled checked={this.isScopeSelected('price',1)} onChange={this.handleScopeSelect('price',1)} />
+                <Checkbox label="SKU" disabled checked={this.isScopeSelected('sku',1)} onChange={this.handleScopeSelect('sku',1)} />
+            </div> */}
+
+            <div className={(tutorial > 2 && tutorial < 7) ? "section focused" : "section"}>
+              <h3><b>Operation: </b></h3>
+              <div className={(tutorial > 2 && tutorial < 7) ? "form-row circle"+tutorial: "form-row"}>
+                <ChoiceList
+                  choices={[
+                    {label: 'Replace text', value: 'replace'},
+                    {label: 'Insert in front', value: 'insert'},
+                    {label: 'Append to end', value: 'append'},
+                    {label: 'Remove text', value: 'delete'},
+                  ]}
+                  selected={operation}
+                  onChange={this.handleChange('operation')}
+                />
+              </div>
+
+              {(operation ) && <div className="form-row replace-text">
+              {(operation ==="replace" || operation ==="insert" || operation ==="append") && <div className="form-input" >
+                  <TextField placeholder={operation + " text"} disabled = {operation === "delete"} value={replacestring} onChange={this.handleChange('replacestring')} />
+                </div>}
+                <Button className="form-button" loading={loading} onClick={this.handleReplace.bind(this)}>{operation} </Button>
+                <Button className="form-button" loading={loading} onClick={this.handleReplaceAll.bind(this)}>{operation} all</Button>
+              </div>}
+            </div>
+
+
+            <div className={(tutorial === 2 || tutorial === 7 || tutorial === 8) ? "section focused" : "section"}>
+            <h3><b>Options: </b></h3>
+            <div className="form-row option-list">
+              <Checkbox label="Match case" checked={this.state.matchcase} onChange={this.handleChange('matchcase')} />
+              <a  className="form-item" onClick={this.toggleFavorite.bind(this)} >
+                <Icon source={this.state.saved ? StarFilledMinor : StarOutlineMinor} />
+                <p>{this.state.saved ? "Saved" : "Save to Favorite"}</p>
+              </a>
+            </div>
+            </div>
           </div>
-          
-
-          <hr/>
-          {/* <h3><b>Variant fields</b>(not in use): </h3>
-          <div className="form-row">
-              <Checkbox label="Price" disabled checked={this.isScopeSelected('price',1)} onChange={this.handleScopeSelect('price',1)} />
-              <Checkbox label="SKU" disabled checked={this.isScopeSelected('sku',1)} onChange={this.handleScopeSelect('sku',1)} />
-          </div> */}
-
-
-          <h3><b>Operation: </b></h3>
-          <div className="form-row">
-            <ChoiceList
-              choices={[
-                {label: 'Replace text', value: 'replace'},
-                {label: 'Insert in front', value: 'insert'},
-                {label: 'Append to end', value: 'append'},
-                {label: 'Remove text', value: 'delete'},
-              ]}
-              selected={operation}
-              onChange={this.handleChange('operation')}
-            />
+          <div className="tutorial">
+            <Tutorial tutorial={this.state.tutorial} handleChange={this.handleTutorialChange}/>
           </div>
-
-          {(operation ) && <div className="form-row replace-text">
-          {(operation ==="replace" || operation ==="insert" || operation ==="append") && <div className="form-input" >
-              <TextField placeholder={operation + " text"} disabled = {operation === "delete"} value={replacestring} onChange={this.handleChange('replacestring')} />
-            </div>}
-            <Button className="form-button" loading={loading} onClick={this.handleReplace.bind(this)}>{operation} </Button>
-            <Button className="form-button" loading={loading} onClick={this.handleReplaceAll.bind(this)}>{operation} all</Button>
-          </div>}
-
-          <h3><b>Options: </b></h3>
-          <div className="form-row option-list">
-            <Checkbox label="Match case" checked={this.state.matchcase} onChange={this.handleChange('matchcase')} />
-            <a  className="form-item" onClick={this.toggleFavorite.bind(this)} >
-              <Icon source={this.state.saved ? StarFilledMinor : StarOutlineMinor} />
-              <p>{this.state.saved ? "Saved" : "Save to Favorite"}</p>
-            </a>
-          </div>
-
         </div>
         <Card>
           <DataTable

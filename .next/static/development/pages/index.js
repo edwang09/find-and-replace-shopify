@@ -79546,17 +79546,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! store-js */ "./node_modules/store-js/dist/store.legacy.js");
 /* harmony import */ var store_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(store_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @shopify/polaris */ "./node_modules/@shopify/polaris/index.es.js");
-/* harmony import */ var _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @shopify/polaris-icons */ "./node_modules/@shopify/polaris-icons/index.es.js");
-/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @shopify/app-bridge-react */ "./node_modules/@shopify/app-bridge-react/index.js");
-/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./index.css */ "./pages/index.css");
-/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _components_graphql__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../components/graphql */ "./components/graphql.js");
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _tutorial__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./tutorial */ "./pages/tutorial.js");
+/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @shopify/polaris */ "./node_modules/@shopify/polaris/index.es.js");
+/* harmony import */ var _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @shopify/polaris-icons */ "./node_modules/@shopify/polaris-icons/index.es.js");
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @shopify/app-bridge-react */ "./node_modules/@shopify/app-bridge-react/index.js");
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./index.css */ "./pages/index.css");
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _components_graphql__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../components/graphql */ "./components/graphql.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 
 
 
@@ -79578,6 +79579,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement;
 function ownKeys(object, enumerableOnly) { var keys = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_7___default()(object); if (_babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4___default.a) { var symbols = _babel_runtime_corejs2_core_js_object_get_own_property_symbols__WEBPACK_IMPORTED_MODULE_4___default()(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return _babel_runtime_corejs2_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3___default()(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(target, key, source[key]); }); } else if (_babel_runtime_corejs2_core_js_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_2___default.a) { _babel_runtime_corejs2_core_js_object_define_properties__WEBPACK_IMPORTED_MODULE_1___default()(target, _babel_runtime_corejs2_core_js_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_2___default()(source)); } else { ownKeys(Object(source)).forEach(function (key) { _babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0___default()(target, key, _babel_runtime_corejs2_core_js_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3___default()(source, key)); }); } } return target; }
+
 
 
 
@@ -79622,7 +79624,8 @@ function (_React$Component) {
       allproducts: [],
       operation: '',
       cursor: 0,
-      total: 0
+      total: 0,
+      tutorial: -1
     });
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "handleScopeSelect", function (scope, field) {
@@ -79649,7 +79652,7 @@ function (_React$Component) {
       // console.log("toggle fav")
       var favorite = store_js__WEBPACK_IMPORTED_MODULE_16___default.a.get('favorite');
 
-      var searchform = lodash__WEBPACK_IMPORTED_MODULE_20___default.a.pick(_this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes', 'operation']);
+      var searchform = lodash__WEBPACK_IMPORTED_MODULE_21___default.a.pick(_this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes', 'operation']);
 
       var hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_7___default()(searchform).sort().map(function (x) {
         return searchform[x].toString();
@@ -79685,7 +79688,7 @@ function (_React$Component) {
         }
 
         _this.setState(Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])({}, field, value), function () {
-          var searchform = lodash__WEBPACK_IMPORTED_MODULE_20___default.a.pick(_this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes']);
+          var searchform = lodash__WEBPACK_IMPORTED_MODULE_21___default.a.pick(_this.state, ['searchquery', 'replacestring', 'matchcase', 'scopes']);
 
           var hashedfav = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_7___default()(searchform).sort().map(function (x) {
             return searchform[x].toString();
@@ -79718,7 +79721,7 @@ function (_React$Component) {
 
       _this.state.products.map(function (item, idx) {
         _this.props.apolloClient.mutate({
-          mutation: _components_graphql__WEBPACK_IMPORTED_MODULE_22__["UPDATE_PRODUCTS"],
+          mutation: _components_graphql__WEBPACK_IMPORTED_MODULE_23__["UPDATE_PRODUCTS"],
           variables: {
             input: _this.transformData(item.node)
           }
@@ -79757,7 +79760,7 @@ function (_React$Component) {
       var count = promises;
 
       _this.props.apolloClient.mutate({
-        mutation: _components_graphql__WEBPACK_IMPORTED_MODULE_22__["UPDATE_PRODUCTS"],
+        mutation: _components_graphql__WEBPACK_IMPORTED_MODULE_23__["UPDATE_PRODUCTS"],
         variables: {
           input: _this.transformData(_this.state.products[currentCursor.index].node, currentCursor.sco, currentCursor.count)
         }
@@ -79986,12 +79989,65 @@ function (_React$Component) {
       });
     });
 
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "handleTutorialChange", function (type) {
+      return function () {
+        console.log("tutorial change");
+        var tutorial = _this.state.tutorial;
+
+        switch (type) {
+          case "next":
+            if (tutorial === 8) {
+              _this.setState({
+                tutorial: -1
+              });
+
+              store_js__WEBPACK_IMPORTED_MODULE_16___default.a.set("tutorial", -1);
+            } else {
+              _this.setState({
+                tutorial: tutorial + 1
+              });
+            }
+
+            break;
+
+          case "close":
+            _this.setState({
+              tutorial: -1
+            });
+
+            store_js__WEBPACK_IMPORTED_MODULE_16___default.a.set("tutorial", -1);
+            break;
+
+          case "previous":
+            _this.setState({
+              tutorial: tutorial - 1
+            });
+
+            break;
+
+          default:
+            break;
+        }
+      };
+    });
+
     return _this;
   }
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__["default"])(Index, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var tutorial = store_js__WEBPACK_IMPORTED_MODULE_16___default.a.get('tutorial');
+      this.setState({
+        tutorial: 0
+      });
+
+      if (tutorial === undefined || tutorial > -1) {
+        this.setState({
+          tutorial: 0
+        });
+      }
+
       this.fetchQuery();
     }
   }, {
@@ -80026,7 +80082,7 @@ function (_React$Component) {
 
               _context.next = 5;
               return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_5___default.a.awrap(this.props.apolloClient.query({
-                query: Object(_components_graphql__WEBPACK_IMPORTED_MODULE_22__["constructListproduct"])(cursor)
+                query: Object(_components_graphql__WEBPACK_IMPORTED_MODULE_23__["constructListproduct"])(cursor)
               }));
 
             case 5:
@@ -80195,59 +80251,71 @@ function (_React$Component) {
           operation = _this$state.operation,
           searchquery = _this$state.searchquery,
           loading = _this$state.loading,
-          replacestring = _this$state.replacestring;
-      return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Page"], {
+          replacestring = _this$state.replacestring,
+          tutorial = _this$state.tutorial;
+      return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Page"], {
         fullWidth: true
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Frame"], null, __jsx("div", {
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Frame"], null, __jsx(_tutorial__WEBPACK_IMPORTED_MODULE_17__["Welcome"], {
+        tutorial: tutorial,
+        handleChange: this.handleTutorialChange
+      }), __jsx("div", {
         className: "form-container"
-      }, (this.state.loading || this.state.fetching) && __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Loading"], null), __jsx("h3", {
+      }, tutorial > 0 && __jsx("div", {
+        className: "overlay"
+      }), __jsx("div", {
+        className: "form"
+      }, (this.state.loading || this.state.fetching) && __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Loading"], null), __jsx("div", {
+        className: tutorial === 1 ? "section focused" : "section"
+      }, __jsx("h3", {
         className: "select-all"
-      }, __jsx("b", null, "In fields: "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+      }, __jsx("b", null, "In fields: "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Button"], {
         onClick: this.selectAll.bind(this)
       }, "select all")), __jsx("div", {
         className: "form-row field-list"
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Checkbox"], {
         label: "Title",
         checked: this.isScopeSelected('title'),
         onChange: this.handleScopeSelect('title')
-      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Checkbox"], {
         label: "Handle",
         checked: this.isScopeSelected('handle'),
         onChange: this.handleScopeSelect('handle')
-      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Checkbox"], {
         label: "Product types",
         checked: this.isScopeSelected('productType'),
         onChange: this.handleScopeSelect('productType')
-      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Checkbox"], {
         label: "Vendor",
         checked: this.isScopeSelected('vendor'),
         onChange: this.handleScopeSelect('vendor')
-      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Checkbox"], {
         label: "Tags",
         checked: this.isScopeSelected('tags'),
         onChange: this.handleScopeSelect('tags')
-      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Checkbox"], {
         label: "Description",
         checked: this.isScopeSelected('description'),
         onChange: this.handleScopeSelect('description')
-      })), __jsx("h3", null, __jsx("b", null, "Search keywords: ")), __jsx("div", {
+      }))), __jsx("div", {
+        className: tutorial === 2 ? "section focused" : "section"
+      }, __jsx("h3", null, __jsx("b", null, "Search keywords: ")), __jsx("div", {
         className: "form-row find-text"
       }, __jsx("div", {
         className: "form-input"
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["TextField"], {
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["TextField"], {
         placeholder: "Find",
         value: searchquery,
         onChange: this.handleChange('searchquery')
-      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Button"], {
         className: "",
         onClick: this.previous.bind(this)
-      }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_23__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_24__["faChevronUp"]
-      }), " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+      }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_24__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_25__["faChevronUp"]
+      }), " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Button"], {
         className: "",
         onClick: this.next.bind(this)
-      }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_23__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_24__["faChevronDown"]
+      }, " ", __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_24__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_25__["faChevronDown"]
       }), " "), !this.state.total && searchquery !== "" && __jsx("p", {
         style: {
           color: "red",
@@ -80257,11 +80325,13 @@ function (_React$Component) {
         style: {
           fontWeight: "bold"
         }
-      }, this.state.cursor + 1, " of ", this.state.total)), __jsx("hr", null), __jsx("h3", null, __jsx("b", null, "Operation: ")), __jsx("div", {
-        className: "form-row"
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["ChoiceList"], {
+      }, this.state.cursor + 1, " of ", this.state.total))), __jsx("div", {
+        className: tutorial > 2 && tutorial < 7 ? "section focused" : "section"
+      }, __jsx("h3", null, __jsx("b", null, "Operation: ")), __jsx("div", {
+        className: tutorial > 2 && tutorial < 7 ? "form-row circle" + tutorial : "form-row"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["ChoiceList"], {
         choices: [{
-          label: 'Place keywords',
+          label: 'Replace text',
           value: 'replace'
         }, {
           label: 'Insert in front',
@@ -80270,7 +80340,7 @@ function (_React$Component) {
           label: 'Append to end',
           value: 'append'
         }, {
-          label: 'Remove keywords',
+          label: 'Remove text',
           value: 'delete'
         }],
         selected: operation,
@@ -80279,35 +80349,42 @@ function (_React$Component) {
         className: "form-row replace-text"
       }, (operation === "replace" || operation === "insert" || operation === "append") && __jsx("div", {
         className: "form-input"
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["TextField"], {
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["TextField"], {
         placeholder: operation + " text",
         disabled: operation === "delete",
         value: replacestring,
         onChange: this.handleChange('replacestring')
-      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+      })), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Button"], {
         className: "form-button",
         loading: loading,
         onClick: this.handleReplace.bind(this)
-      }, operation, " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+      }, operation, " "), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Button"], {
         className: "form-button",
         loading: loading,
         onClick: this.handleReplaceAll.bind(this)
-      }, operation, " all")), __jsx("h3", null, __jsx("b", null, "Options: ")), __jsx("div", {
+      }, operation, " all"))), __jsx("div", {
+        className: tutorial === 2 || tutorial === 7 || tutorial === 8 ? "section focused" : "section"
+      }, __jsx("h3", null, __jsx("b", null, "Options: ")), __jsx("div", {
         className: "form-row option-list"
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Checkbox"], {
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Checkbox"], {
         label: "Match case",
         checked: this.state.matchcase,
         onChange: this.handleChange('matchcase')
       }), __jsx("a", {
         className: "form-item",
         onClick: this.toggleFavorite.bind(this)
-      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Icon"], {
-        source: this.state.saved ? _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_18__["StarFilledMinor"] : _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_18__["StarOutlineMinor"]
-      }), __jsx("p", null, this.state.saved ? "Saved" : "Save to Favorite")))), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["DataTable"], {
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Icon"], {
+        source: this.state.saved ? _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_19__["StarFilledMinor"] : _shopify_polaris_icons__WEBPACK_IMPORTED_MODULE_19__["StarOutlineMinor"]
+      }), __jsx("p", null, this.state.saved ? "Saved" : "Save to Favorite"))))), __jsx("div", {
+        className: "tutorial"
+      }, __jsx(_tutorial__WEBPACK_IMPORTED_MODULE_17__["Tutorial"], {
+        tutorial: this.state.tutorial,
+        handleChange: this.handleTutorialChange
+      }))), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Card"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["DataTable"], {
         columnContentTypes: this.getHeaderType(),
         headings: this.getHeader(),
         rows: this.state.productList
-      })), this.state.showtoast ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_17__["Toast"], {
+      })), this.state.showtoast ? __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_18__["Toast"], {
         content: this.state.toastcontent,
         onDismiss: function onDismiss() {
           return _this3.setState({
@@ -80321,9 +80398,108 @@ function (_React$Component) {
   return Index;
 }(react__WEBPACK_IMPORTED_MODULE_15___default.a.Component);
 
-Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Index, "contextType", _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_19__["Context"]);
+Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Index, "contextType", _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_20__["Context"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
+
+/***/ }),
+
+/***/ "./pages/tutorial.js":
+/*!***************************!*\
+  !*** ./pages/tutorial.js ***!
+  \***************************/
+/*! exports provided: Welcome, Tutorial */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Welcome", function() { return Welcome; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tutorial", function() { return Tutorial; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shopify_polaris__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @shopify/polaris */ "./node_modules/@shopify/polaris/index.es.js");
+/* harmony import */ var _shopify_app_bridge_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @shopify/app-bridge/actions */ "./node_modules/@shopify/app-bridge/actions/index.js");
+/* harmony import */ var _shopify_app_bridge_actions__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_actions__WEBPACK_IMPORTED_MODULE_2__);
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+var tutorialText = ["To get started, you'll need to select the relevant in fields. There's also an option to select all.", "Type in your keywords here. You also have the option to match case.", "There are 4 main operations, Replace searched text with text you specify. For example:", "Insert in front of the column with text you specify. For example:", "Append to end of the column with text you specify. For example:", "Remove searched text. For example:", "For keywords/phrases that you use regularly, save them to favorites", "Once saved to favorites, you can bundle together multiple queries and run them as a set with one click."];
+function Welcome(props) {
+  return __jsx("div", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+    open: props.tutorial === 0,
+    onClose: props.handleChange("close"),
+    title: "Welcome to Find & Replace for Shopify",
+    primaryAction: {
+      content: 'Yes',
+      onAction: props.handleChange("next")
+    },
+    secondaryActions: [{
+      content: 'No',
+      onAction: props.handleChange("close")
+    }]
+  }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Modal"].Section, null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["TextContainer"], null, __jsx("p", null, "Welcome to Find & Replace for Shopify. Want to take a quick tour? It's less than 2 minutes..")))));
+}
+function Tutorial(props) {
+  if (!props.tutorial || props.tutorial < 1) return null;
+  var primaryButtonText = props.tutorial === 8 ? 'Close' : 'Next';
+  var titleText = "Find & Replace for Shopify Tutorial ".concat(props.tutorial, "/8");
+  return __jsx("div", null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    sectioned: true,
+    actions: [{
+      content: 'Close tutorial',
+      onAction: props.handleChange("close")
+    }],
+    title: titleText,
+    primaryFooterAction: {
+      content: primaryButtonText,
+      onAction: props.handleChange("next")
+    },
+    secondaryFooterActions: [{
+      content: 'Previous',
+      onAction: props.handleChange("previous")
+    }]
+  }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["TextContainer"], null, __jsx("p", null, tutorialText[props.tutorial - 1]), props.tutorial === 3 && __jsx("div", null, __jsx("h5", null, __jsx("b", null, "original text :")), __jsx("p", null, "This is a ", __jsx("span", {
+    style: {
+      color: "green"
+    }
+  }, "red"), " apple."), __jsx("h5", null, __jsx("b", null, "replaced text :"), " "), __jsx("p", null, "This is a ", __jsx("span", {
+    style: {
+      backgroundColor: "#3297FD",
+      color: "white"
+    }
+  }, "green"), " apple.")), props.tutorial === 4 && __jsx("div", null, __jsx("h5", null, __jsx("b", null, "original text :")), __jsx("p", null, "This is a ", __jsx("span", {
+    style: {
+      color: "green"
+    }
+  }, "red"), " apple."), __jsx("h5", null, __jsx("b", null, "inserted text :"), " "), __jsx("p", null, __jsx("span", {
+    style: {
+      color: "orange"
+    }
+  }, "Hello, "), "This is a ", __jsx("span", {
+    style: {
+      color: "green"
+    }
+  }, "red"), " apple.")), props.tutorial === 5 && __jsx("div", null, __jsx("h5", null, __jsx("b", null, "original text :")), __jsx("p", null, "This is a ", __jsx("span", {
+    style: {
+      color: "green"
+    }
+  }, "red"), " apple."), __jsx("h5", null, __jsx("b", null, "appended text :"), " "), __jsx("p", null, "This is a ", __jsx("span", {
+    style: {
+      color: "green"
+    }
+  }, "red"), " apple.", __jsx("span", {
+    style: {
+      color: "orange"
+    }
+  }, "Thanks"))), props.tutorial === 6 && __jsx("div", null, __jsx("h5", null, __jsx("b", null, "original text :")), __jsx("p", null, "This is a  ", __jsx("span", {
+    style: {
+      backgroundColor: "#3297FD",
+      color: "white",
+      textDecoration: "line-through"
+    }
+  }, "red"), "  apple."), __jsx("h5", null, __jsx("b", null, "deleted text :"), " "), __jsx("p", null, "This is a apple.")), props.tutorial === 8 && __jsx("div", null, __jsx("p", null, "you can access and run your saved operations in the ", __jsx("b", null, "favorites tab"), " on the top.")))));
+}
 
 /***/ }),
 
