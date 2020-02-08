@@ -15,7 +15,7 @@ import {
       "For keywords/phrases that you use regularly, save them to favorites",
       "Once saved to favorites, you can bundle together multiple queries and run them as a set with one click."
   ]
-  export function Welcome(props) {
+  function Welcome(props) {
     return (
         <div>
             <Modal
@@ -44,7 +44,7 @@ import {
         </div>
     )
 }
-export function Tutorial(props) {
+function Tutorial(props) {
     if (!props.tutorial || props.tutorial < 1) return null
     const primaryButtonText = (props.tutorial===8?'Close':'Next')
     const titleText = `Find & Replace for Shopify Tutorial ${props.tutorial}/8`
@@ -127,3 +127,5 @@ export function Tutorial(props) {
         </div>
     )
 }
+
+export default {Welcome, Tutorial}
