@@ -1,5 +1,5 @@
 import store from 'store-js';
-import { Welcome, Tutorial} from './tutorial'
+import { Welcome, Tutorial} from '../components/tutorial'
 import { 
   Card,
   Page,
