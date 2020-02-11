@@ -44,6 +44,20 @@ h3.select-all > button{
     z-index: 100;
     width: 650px;
 }
+.focused-small{
+    /* border: 1px solid red; */
+    background-color:white;
+    z-index: 100;
+    padding: 1px 2px;
+    width: 100px;
+}
+.focused-medium{
+    /* border: 1px solid red; */
+    background-color:white;
+    z-index: 100;
+    padding: 1px 2px;
+    width: 130px;
+}
 /* .form{
     z-index: 100;
 } */

@@ -499,16 +499,20 @@ class Index extends React.Component {
             </div>
 
 
-            <div className={(tutorial === 2 || tutorial === 7 || tutorial === 8) ? "section focused" : "section"}>
+            {/* <div className={(tutorial === 2 || tutorial === 7 || tutorial === 8) ? "section focused" : "section"}> */}
             <h3><b>Options: </b></h3>
             <div className="form-row option-list">
-              <Checkbox label="Match case" checked={this.state.matchcase} onChange={this.handleChange('matchcase')} />
-              <a  className="form-item" onClick={this.toggleFavorite.bind(this)} >
-                <Icon source={this.state.saved ? StarFilledMinor : StarOutlineMinor} />
-                <p>{this.state.saved ? "Saved" : "Save to Favorite"}</p>
-              </a>
+              <div className={(tutorial === 2 ) ? "focused-small" : ""}>
+                <Checkbox label="Match case" checked={this.state.matchcase} onChange={this.handleChange('matchcase')} />
+              </div>
+              <div className={(tutorial === 7 || tutorial === 8) ? "focused-medium" : ""}>
+                <a  className="form-item" onClick={this.toggleFavorite.bind(this)} >
+                  <Icon source={this.state.saved ? StarFilledMinor : StarOutlineMinor} />
+                  <p>{this.state.saved ? "Saved" : "Save to Favorite"}</p>
+                </a>
+              </div>
             </div>
-            </div>
+            {/* </div> */}
           </div>
           <div className="tutorial">
             <Tutorial tutorial={this.state.tutorial} handleChange={this.handleTutorialChange}/>

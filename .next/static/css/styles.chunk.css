@@ -8721,5 +8721,98 @@ body{
   .Polaris-TopBar__SecondaryMenu{
     display:none; } }
 
+.form-container{
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0;
+    justify-content: space-between;
+}
+.form{
+    /* z-index: 100; */
+    width:565px;
+    display: flex;
+    flex-direction: column;
+}
+.tutorial{
+    z-index: 100;
+    width: 450px;
+}
+.form-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.form-row > *:not(:nth-child(1)){
+    margin-left: 10px;
+}
+.form-row.find-text > *:not(:nth-child(4)){
+    margin-left: 0;
+}
+.form-row .form-input{
+    flex-grow: 1;
+    max-width: 450px;
+}
+.form-row .form-item{
+    display: flex;
+    align-items: center;
+}
+h3.select-all > button{
+    margin-top: 5px;
+    padding: .2rem .4rem;
+    min-height: auto;
+}
+.focused{
+    /* border: 1px solid red; */
+    background-color:white;
+    z-index: 100;
+    width: 650px;
+}
+.focused-small{
+    /* border: 1px solid red; */
+    background-color:white;
+    z-index: 100;
+    padding: 1px 2px;
+    width: 100px;
+}
+.focused-medium{
+    /* border: 1px solid red; */
+    background-color:white;
+    z-index: 100;
+    padding: 1px 2px;
+    width: 130px;
+}
+/* .form{
+    z-index: 100;
+} */
+/* .focused * {
+    z-index: 100;
+} */
+.section{
+    padding: 10px 5px;
+}
+.overlay{
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background-color: rgba(33, 43, 54, 0.4);
+    /* background-color: black; */
+    opacity: 1;
+}
+.circle3 li:nth-child(1){
+    border: 1px solid red;
+}
+.circle4 li:nth-child(2){
+    border: 1px solid red;
+}
+.circle5 li:nth-child(3){
+    border: 1px solid red;
+}
+.circle6 li:nth-child(4){
+    border: 1px solid red;
+}
 
 /*# sourceMappingURL=styles.chunk.css.map*/

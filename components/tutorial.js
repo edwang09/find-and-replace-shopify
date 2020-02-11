@@ -4,17 +4,26 @@ import {
     TextContainer,
     Card
   } from '@shopify/polaris';
-  import { Redirect } from '@shopify/app-bridge/actions';
   const tutorialText = [
-      "To get started, you'll need to select the relevant in fields. There's also an option to select all.",
-      "Type in your keywords here. You also have the option to match case.",
-      "There are 4 main operations, Replace searched text with text you specify. For example:",
-      "Insert in front of the column with text you specify. For example:",
-      "Append to end of the column with text you specify. For example:",
-      "Remove searched text. For example:",
-      "For keywords/phrases that you use regularly, save them to favorites",
-      "Once saved to favorites, you can bundle together multiple queries and run them as a set with one click."
-  ]
+    "To get started, you'll need to select the relevant in fields. There's also an option to select all.",
+    "Type in the keyword(s) you're searching for here. You also have the option to match case.",
+    "The first option is to replace searched keyword(s) with new text. For example:",
+    "The second option is to insert new text in front of a phrase. For example:",
+    "The third option is to append new text to end of a phrase. For example: ",
+    "The fourth option is to remove searched keyword(s). For example: ",
+    "For keywords/phrases that you use regularly, save them to favorites",
+    "Once saved to favorites, you can bundle together multiple queries and run them as a set with one click."
+    ]  
+    const tutorialTitle = [
+        "1/8: In Fields",
+        "2/8: Search Keywords",
+        "3/8: Operations - Find and Replace",
+        "4/8: Operations - Insert in Front",
+        "5/8: Operations - Append to End",
+        "6/8: Operations - Remove Text",
+        "7/8: Favorites",
+        "8/8: Favorites"
+    ]
   export function Welcome(props) {
     return (
         <div>
@@ -47,7 +56,7 @@ import {
 export function Tutorial(props) {
     if (!props.tutorial || props.tutorial < 1) return null
     const primaryButtonText = (props.tutorial===8?'Close':'Next')
-    const titleText = `Find & Replace for Shopify Tutorial ${props.tutorial}/8`
+    const titleText = tutorialTitle[props.tutorial-1]
     return (
             <div>
             <Card
@@ -76,7 +85,7 @@ export function Tutorial(props) {
                             <div>
                                 <h5><b>original text :</b></h5>
                                 <p>This is a <span style={{color:"green"}}>red</span> apple.</p>
-                                <h5><b>replaced text :</b> </h5>
+                                <h5><b>updated text :</b> </h5>
                                 <p>This is a <span style={{backgroundColor:"#3297FD",color:"white"}}>green</span> apple.</p>
                             </div>
                         )
@@ -87,8 +96,8 @@ export function Tutorial(props) {
                             <div>
                                 <h5><b>original text :</b></h5>
                                 <p>This is a <span style={{color:"green"}}>red</span> apple.</p>
-                                <h5><b>inserted text :</b> </h5>
-                                <p><span style={{color:"orange"}}>Hello, </span>This is a <span style={{color:"green"}}>red</span> apple.</p>
+                                <h5><b>updated text :</b> </h5>
+                                <p><span style={{color:"orange"}}>Hello! </span>This is a <span style={{color:"green"}}>red</span> apple.</p>
                             </div>
                         )
                     }
@@ -98,8 +107,8 @@ export function Tutorial(props) {
                             <div>
                                 <h5><b>original text :</b></h5>
                                 <p>This is a <span style={{color:"green"}}>red</span> apple.</p>
-                                <h5><b>appended text :</b> </h5>
-                                <p>This is a <span style={{color:"green"}}>red</span> apple.<span style={{color:"orange"}}>Thanks</span></p>
+                                <h5><b>updated text :</b> </h5>
+                                <p>This is a <span style={{color:"green"}}>red</span> apple.<span style={{color:"orange"}}> Isn't that great?</span></p>
                             </div>
                         )
                     }
@@ -108,9 +117,9 @@ export function Tutorial(props) {
                         (
                             <div>
                                 <h5><b>original text :</b></h5>
-                                <p>This is a  <span style={{backgroundColor:"#3297FD",color:"white",textDecoration:"line-through"}}>red</span>  apple.</p>
-                                <h5><b>deleted text :</b> </h5>
-                                <p>This is a apple.</p>
+                                <p>This is a  <span style={{backgroundColor:"#3297FD",color:"white",textDecoration:"line-through"}}>large</span> red apple.</p>
+                                <h5><b>updated text :</b> </h5>
+                                <p>This is a red apple.</p>
                             </div>
                         )
                     }
