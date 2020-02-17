@@ -442,8 +442,9 @@ class Index extends React.Component {
           {(tutorial > 0) && <div className = "overlay"></div>}
           <div className="form">
             {(this.state.loading || this.state.fetching) && <Loading />}
-
             <div className={(tutorial === 1) ? "section focused" : "section"}>
+            <small style={{color:"red"}}>These changes cannot be undone. We recommend backing up your catalog to CSV before applying edits.</small>
+
                 <h3 className="select-all"><b>In fields: </b><Button onClick={this.selectAll.bind(this)}>select all</Button></h3>
                 <div className="form-row field-list">
                     <Checkbox label="Title" checked={this.isScopeSelected('title')} onChange={this.handleScopeSelect('title')} />

@@ -45,7 +45,7 @@ import {
                 <Modal.Section>
                 <TextContainer>
                     <p>
-                    Welcome to Find & Replace for Shopify. Want to take a quick tour? It's less than 2 minutes..
+                    Want to take a quick tour? It's less than 2 minutes..
                     </p>
                 </TextContainer>
                 </Modal.Section>
