@@ -358,7 +358,10 @@ class Index extends React.Component {
         const node = this.HandleTagDisplay(data[index].node);
         for (let scoid = 0; scoid < this.state.scopes.length; scoid++) {
           const sco = this.state.scopes[scoid]
-          const count = node[sco].match(replace) ? node[sco].match(replace).length : 0
+          let count = 0
+          if (node[sco] && node[sco].match(replace) ){
+            count = node[sco].match(replace).length
+          }
           if (result === undefined && count + counter > cursor){
             result = {index:index ,sco: sco, count : (cursor - counter) }
           }
