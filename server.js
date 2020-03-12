@@ -42,6 +42,9 @@ app.prepare().then(() => {
     server.use(graphQLProxy({version: ApiVersion.October19}))
     server.use(verifyRequest());
     server.use(async (ctx) => {
+      if (ctx.url.includes("/favorite/")) {
+        ctx.url = ctx.url.replace("/favorite/", "/favorite");
+      }
       await handle(ctx.req, ctx.res);
       ctx.respond = false;
       ctx.res.statusCode = 200;
